@@ -61,7 +61,7 @@ session_start();
         techList.innerHTML = ''; // Clear existing options
         
         if(position && position.toLowerCase() !== 'bez znakowania') {
-            fetch('get_technologies_by_position.php?position=' + encodeURIComponent(position))
+            fetch('get_technologie.php?position=' + encodeURIComponent(position))
                 .then(response => response.json())
                 .then(technologies => {
                     technologies.forEach(tech => {

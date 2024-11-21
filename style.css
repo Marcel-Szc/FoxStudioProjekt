@@ -3,6 +3,12 @@ input {
     margin: 5px;
 }
 
+.info {
+    font-size: 0.8em;
+    color: #666;
+    margin: 5px;
+}
+
 input[list] {
     width: 200px;
 }

@@ -83,7 +83,19 @@ function toggleIloscKolorow() {
     } else {
         iloscKolorowContainer.style.display = 'block';
     }
-}  
+} 
+function getKolory() {
+    fetch('get_kolory.php')
+            .then(response => response.json())
+            .then(positions => {
+                positions.forEach(position => {
+                    const option = document.createElement('option');
+                    option.value = position;
+                    document.getElementById("kolory").appendChild(option);
+                    console.log(position);
+                });
+            });
+} 
 document.getElementById('technologiaZnakowania').addEventListener('change', function() {
     toggleIloscKolorow();
 });

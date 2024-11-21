@@ -10,20 +10,21 @@ session_start();
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body onload="getNazwyProd(), toggleTechnologia(), toggleIloscKolorow(), toggleOff('sprowadzony'), toggleOff('cena')">
+<body onload="getNazwyProd(), toggleTechnologia(), toggleIloscKolorow(), getKolory(), toggleOff('sprowadzony'), toggleOff('cena')">
     <header>
     <?php 
-        if($_SESSION['zalogowany'] == true){
-            echo '<div class=imie>'.$_SESSION['imie'].'</div>';
-            echo '<a href="logout.php">Wyloguj</a>';
+        if($_SESSION['zalogowany'] == false){
+            echo '<a href="logowanie.html">Zaloguj się</a>';
         }
         else {
-            header('Location: logowanie.php');
-        }
+            echo '<div class=imie>'.$_SESSION['imie'].'</div>';
+            echo '<a href="logout.php">Wyloguj</a>';
+        
     ?>
     </header>
         <section class="main">
-            <form action="dodaj.php" method="post">
+            <?php 
+           echo' <form action="dodaj.php" method="post">
                 <div class="nazwaContainer">
                     <label for="nazwaProd">Nazwa produktu: </label>
                     <input list="nazwyProd" name="nazwaProd" id="nazwaProd" placeholder="nazwa produktu">
@@ -96,10 +97,10 @@ session_start();
                     <div id="cena_jednostkowa"></div>
                     <div id="marza"></div>
                 </div>
-            </div>
+            </div> '
+;}?>
         </section>
     <script src="formularz.js"></script>
     <script src="podsumowanie.js"></script>
-    <script src="zabezpieczenia.js"></script>
 </body>
 </html>

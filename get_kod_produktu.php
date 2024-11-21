@@ -3,7 +3,7 @@
 
     if(isset($_GET['product'])) {
         $product = $_GET['product'];
-        $zapytaniePoz = "SELECT DISTINCT pozycja_znakowania FROM produkty WHERE nazwa_produktu = ?";
+        $zapytaniePoz = "SELECT DISTINCT kod_produktu FROM produkty WHERE kod_produktu = ?";
         $stmt = $polaczenie->prepare($zapytaniePoz);
         $stmt->bind_param("s", $product);
         $stmt->execute();
@@ -11,9 +11,12 @@
         
         $positions = array();
         while($row = $result->fetch_assoc()) {
-            $positions[] = $row['pozycja_znakowania'];
+            $positions[] = $row['kod_produktu'];
         }
         
         echo json_encode($positions);
+    }
+    else {
+        echo json_encode("error");
     }
 ?>

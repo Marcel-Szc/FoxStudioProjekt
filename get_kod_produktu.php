@@ -1,9 +1,9 @@
 <?php
     include_once('polaczenie.php');
 
-    if(isset($_GET['product'])) {
+    
         $product = $_GET['product'];
-        $zapytaniePoz = "SELECT DISTINCT kod_produktu FROM produkty WHERE kod_produktu = ?";
+        $zapytaniePoz = "SELECT DISTINCT kod_produktu FROM produkty WHERE nazwa_produktu = ?";
         $stmt = $polaczenie->prepare($zapytaniePoz);
         $stmt->bind_param("s", $product);
         $stmt->execute();
@@ -15,8 +15,5 @@
         }
         
         echo json_encode($positions);
-    }
-    else {
-        echo json_encode("error");
-    }
+    
 ?>

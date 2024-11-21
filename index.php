@@ -85,7 +85,7 @@ session_start();
                     });
                 });
         }
-    }
+    }   
     function toggleTechnologia() {
         const pozycjaInput = document.getElementById('pozycjaZnakowania');
         const techContainer = document.getElementById('technologiaContainer');
@@ -109,9 +109,6 @@ session_start();
         }
     }
     toggleIloscKolorow();   
-    document.getElementById('pozycjaZnakowania').addEventListener('change', function() {
-        toggleTechnologia();
-    });
     document.getElementById('technologiaZnakowania').addEventListener('change', function() {
         toggleIloscKolorow();
     });
@@ -120,8 +117,22 @@ session_start();
         toggleTechnologia();
         getTechnologie(position);
     });
-    document.getElementById('nazwaProd').addEventListener('change', function() {
-        const nazwaProduktu = document.getElementById('nazwaProd').value;
+    function getKodyProduktu(nazwaProduktu) {
+        const kodyList = document.getElementById('kodyProduktu');
+        kodyList.innerHTML = '';     
+        if(nazwaProduktu) {
+            fetch('get_kod_produktu.php?product=' + encodeURIComponent(nazwaProduktu))
+                .then(response => response.json())
+                .then(positions => {
+                    positions.forEach(position => {
+                        const option = document.createElement('option');
+                        option.value = position;
+                        kodyList.appendChild(option);
+                    });
+                });
+        }
+    }
+    function getPozycjeZnakowania(nazwaProduktu) {
         const positionsList = document.getElementById('pozycjeZnakowania');
         positionsList.innerHTML = '';     
         if(nazwaProduktu) {
@@ -135,23 +146,13 @@ session_start();
                     });
                 });
         }
-    });
+    }
     document.getElementById('nazwaProd').addEventListener('change', function() {
         const nazwaProduktu = document.getElementById('nazwaProd').value;
-        const kodProduktu = document.getElementById('kodyProduktu');
-        kodProduktu.innerHTML = '';     
-        if(nazwaProduktu) {
-            fetch('get_kod_produktu.php?product=' + encodeURIComponent(nazwaProduktu))
-                .then(response => response.json())
-                .then(positions => {
-                    positions.forEach(position => {
-                        const option = document.createElement('option');
-                        option.value = position;
-                        kodProduktu.appendChild(option);
-                    });
-                });
-        }
+        getPozycjeZnakowania(nazwaProduktu);
+        getKodyProduktu(nazwaProduktu);
     });
+
     </script>
 </body>
 </html>

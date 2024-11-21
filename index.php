@@ -10,7 +10,7 @@ session_start();
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="getNazwyProd(), toggleTechnologia(), toggleIloscKolorow(), toggleOff('sprowadzony'), toggleOff('cena')">
     <header>
     <?php 
         if($_SESSION['zalogowany'] == true){
@@ -53,10 +53,79 @@ session_start();
                     <input list="kodyProduktu" name="kodProduktu" id="kodProduktu"> 
                     <datalist id="kodyProduktu"></datalist>
                 </div>
-                <input type="submit" value="Dodaj produkt">
+                <div class="wybor">
+                    <div class="wlasny">
+                        <label for="wlasny">Produkt własny: </label>
+                        <input type="radio" name="wlasny" id="wlasny">
+                    </div>
+                    <div class="cudzy">
+                        <label for="cudzy">Produkt sprowadzony: </label>
+                        <input type="radio" name="cudzy" id="cudzy">
+                    </div>   
+                </div>
+                <div class="sprowadzony" id="sprowadzony">
+                    <div class="cenaOryginalna">
+                        <label for="cenaOryginalna">Cena oryginalna: </label>
+                        <input type="text" name="cenaOryginalna" id="cenaOryginalna" placeholder="0.00">
+                        <label for="cenaOryginalna">zł</label>
+                    </div>
+                    <div class="marza">
+                        <label for="marza">Marza: </label>
+                        <input type="text" name="marza" id="marza" placeholder="0">
+                        <label for="marza">%</label>
+                    </div>
+                </div>
+                <div class="cena" id="cena">
+                    <label for="cena">Cena: </label>
+                    <input type="text" name="cena" id="cena" placeholder="0.00">
+                    <label for="cena">zł</label>
+                </div>
+                <div class="zdjecie">
+                    <label for="zdjecie">Zdjęcie: </label>
+                    <input type="file" name="zdjecie" id="zdjecie" accept="image/gif, image/jpeg, image/png">
+                    <div id="pokazZdjecie"></div>
+                </div>
+                <input type="submit" value="Dodaj produkt" id="dodajProdukt">
             </form>
         </section>
 <script>
+    function wyswietlZdjecie(tablicaZdj) {
+        let zdjecia = ""
+        tablicaZdj.forEach((zdj) => {
+        zdjecia += `<img src="${URL.createObjectURL(zdj)}" alt="image" height="25%" width="25%">`;
+        });
+        document.getElementById('pokazZdjecie').innerHTML = zdjecia;
+    }
+    document.getElementById('zdjecie').addEventListener('change', function() {
+        let tablicaZdj = [];
+        const plik = document.getElementById('zdjecie').files;
+        tablicaZdj.push(plik[0])
+        wyswietlZdjecie(tablicaZdj);
+    });
+    function toggleOff($ktoryOff) {
+        document.getElementById($ktoryOff).style.display = 'none';
+    }
+    function toggleOn($ktoryOn) {
+        document.getElementById($ktoryOn).style.display = 'block';
+    }
+    document.getElementById('cudzy').addEventListener('click', function() {
+        if(document.getElementById('wlasny').checked) {
+            document.getElementById('wlasny').checked = false;
+        }
+        const $on = 'sprowadzony';
+        const $off = 'cena';
+        toggleOff($off);
+        toggleOn($on);
+    });
+    document.getElementById('wlasny').addEventListener('click', function() {
+        if(document.getElementById('cudzy').checked) {
+            document.getElementById('cudzy').checked = false;
+        }
+        const $off = 'sprowadzony';
+        const $on = 'cena';
+        toggleOff($off);
+        toggleOn($on);
+    });
     function getNazwyProd() { 
         fetch('get_nazwy.php')
                 .then(response => response.json())
@@ -69,7 +138,6 @@ session_start();
                     });
                 });
     }
-    getNazwyProd();
     function getTechnologie(position) {
         const techList = document.getElementById("technologieZnakowania");
         techList.innerHTML = '';
@@ -97,7 +165,6 @@ session_start();
             techContainer.style.display = 'block';
         }
     }
-    toggleTechnologia();
     function toggleIloscKolorow() {
         const techInput = document.getElementById('technologiaZnakowania');
         const iloscKolorowContainer = document.getElementById('iloscKolorowContainer');
@@ -107,8 +174,7 @@ session_start();
         } else {
             iloscKolorowContainer.style.display = 'block';
         }
-    }
-    toggleIloscKolorow();   
+    }  
     document.getElementById('technologiaZnakowania').addEventListener('change', function() {
         toggleIloscKolorow();
     });
@@ -152,7 +218,6 @@ session_start();
         getPozycjeZnakowania(nazwaProduktu);
         getKodyProduktu(nazwaProduktu);
     });
-
     </script>
 </body>
 </html>

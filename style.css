@@ -1,0 +1,16 @@
+input {
+    padding: 5px;
+    margin: 5px;
+}
+
+input[list] {
+    width: 200px;
+}
+
+form {
+    margin: 20px;
+}
+
+#technologiaContainer {
+    display: block;
+}

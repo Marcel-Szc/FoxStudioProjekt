@@ -8,7 +8,9 @@
     $positions = array();
 
     while($row = $result->fetch_assoc()) {
-       $positions[] = $row['kolor'];
+        if($row['kolor'] != NULL){
+            $positions[] = $row['kolor'];
+        }
     }
 
     echo json_encode($positions);

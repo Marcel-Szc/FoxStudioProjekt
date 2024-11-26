@@ -6,10 +6,8 @@ $technologiaZnakowania = $_POST['technologiaZnakowania'];
 $iloscKolorow = $_POST['iloscKolorow'];
 $kolor = $_POST['kolor'];
 $kodProduktu = $_POST['kodProduktu'];
-$cena = $_POST['cenaId'];
 $cenaOryginalna = $_POST['cenaOryginalna'];
 $marza = $_POST['marza'];
-$data = $_POST['data'];
 if ($_FILES['zdjecie']['error'] !== UPLOAD_ERR_OK) {
     switch ($_FILES['zdjecie']['error']) {
         case UPLOAD_ERR_INI_SIZE:
@@ -25,11 +23,14 @@ if ($_FILES['zdjecie']['error'] !== UPLOAD_ERR_OK) {
 } else if (isset($_FILES['zdjecie']) && $_FILES['zdjecie']['error'] === UPLOAD_ERR_OK) {
     $zdjęcie = $_FILES['zdjecie']['tmp_name'];
     $zdjęcieImg = file_get_contents($zdjęcie);
-    if ($cena == '' || $cenaOryginalna != '' || $marza != ''){
-        $cena = number_format(($cenaOryginalna + ($cenaOryginalna * $marza/100)), 2);
-    } else {
+
+    if(isset($_POST['cenaId'])) {
+        $cena = $_POST['cenaId']; 
         $cenaOryginalna = NULL;
         $marza = NULL;
+    } else
+    {
+        $cena = number_format(($cenaOryginalna + ($cenaOryginalna * $marza/100)), 2);
     }
     if($technologiaZnakowania == '') {
         $technologiaZnakowania = NULL;
@@ -41,6 +42,8 @@ if ($_FILES['zdjecie']['error'] !== UPLOAD_ERR_OK) {
         $kolor = NULL;
     }
     $nr_oferty = NULL;
+    $idc = NULL;
+    $idz = NULL;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,16 +55,34 @@ if ($_FILES['zdjecie']['error'] !== UPLOAD_ERR_OK) {
     <body>
         <?php  
             try {
-                $insert = "INSERT INTO `produkty`( `nr_oferty`, `nazwa_produktu`, `kod_produktu`, `zdjecie_produktu`, `data`, `pozycja_znakowania`, `technologia_znakowania`, `ilosc_kolorow`, `kolor`, `cena`, `cena_oryginalna`, `marza`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                $insert = "INSERT INTO `produkty`( `nr_oferty`, `nazwa_produktu`, `kod_produktu`, `zdjecie_produktu`) VALUES (?, ?, ?, ?);";
                 $stmt = $polaczenie->prepare($insert);
-                $stmt->bind_param("ssssssssssss", $nr_oferty, $nazwaProduktu, $kodProduktu, $zdjęcieImg, $data, $pozycjaZnakowania, $technologiaZnakowania, $iloscKolorow, $kolor, $cena, $cenaOryginalna, $marza);
+                $stmt->bind_param("ssss", $nr_oferty, $nazwaProduktu, $kodProduktu, $zdjęcieImg);
                 $stmt->send_long_data(0, $zdjęcieImg);
                 $stmt->execute();
                 echo "Udało się!";
             } catch (Throwable $th) {
-                throw $th;
-                echo "Nie udało się!";
-            } }
+                echo $th;
+            } 
+            try{
+                $insertCen = "INSERT INTO `ceny`(`idc`, `cena`, `cena_oryginalna`, `marza`, `nr_oferty`) VALUES (?, ?, ?, ?, ?);";
+                $stmtCen = $polaczenie->prepare($insertCen);
+                $stmtCen->bind_param("sssss", $idc, $cena, $cenaOryginalna, $marza, $nr_oferty);
+                $stmtCen->execute();
+                echo "Udało się!";
+            } catch (Throwable $e){
+                echo $e;
+            }
+            try {
+                $insertZnak = "INSERT INTO `znakowanie`(`idz`, `pozycja_znakowania`,`technologia_znakowania`,`ilosc_kolorow`, `kolor`, `nr_oferty`) VALUES (?, ?, ?, ?, ?, ?);";
+                $stmtZnak = $polaczenie->prepare($insertZnak);
+                $stmtZnak->bind_param("ssssss", $idz, $pozycjaZnakowania, $technologiaZnakowania, $iloscKolorow, $kolor, $nr_oferty);
+                $stmtZnak->execute();
+                echo "Udało się!";
+            } catch (Throwable $e){
+                echo $e;
+            }
+        }
         ?>
     </body>
 </html> 

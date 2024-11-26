@@ -8,146 +8,45 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="styl.css">
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            width:100vw;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
-        .main {
-            display: flex;
-            flex-direction: row;
-            width:100%;
-            height:95%;
-        }
-        .header {
-            height: 5%;
-        }
-        .headerWrapper {
-            display: flex;
-            margin-top: 20px;
-        }
-        .header a {
-            text-decoration: none;
-            color: black;
-            background-color:#1a6283; 
-            border: 0px;
-            padding: 5px;
-            border-radius: 10px;
-        }
-        .wylog {
-            margin-left: 800px;
-        }
-        .imie {
-            margin-right: 800px;
-        }
-        .hero {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-        .heroWrapper {
-            
-        }
-        form *{
-            font-size: 20px;
-        }
-        form div {
-            display: flex;
-            flex-direction: column;
-        }
-        .header * {
-            font-size: 20px; 
-        }
-        .wybor {
-            display: flex;
-            flex-direction: row;
-        }
-        .wybor * {
-            margin-left: 12px;
-            display: flex;
-            flex-direction: row;
-        }
-        .wybor * input {
-            display: flex;
-            flex-direction: row;
-            margin-top: 10px;
-            width: 20px;
-            height:20px;
-        } 
-        input {
-            padding: 5px;
-            margin: 5px;
-            width: 450px;
-        }
-        .sprowadzony {
-            flex-direction: row;
-        }
-        .sprowadzony * input{
-            width: 220px;
-        } 
-        .zdjecie #zdjecie{
-            width: 370px;
-            margin-left: 80px;
-        }
-        label {
-           text-align: center;
-        }
-        input[list] {
-            width: 450px;
-        }
-        form {
-            margin: 20px;
-        }
-        #technologiaContainer {
-            display: block;
-        }
-        #dodajProdukt {
-            background-color:#2cb3e9;
-            border: 0px;
-            border-radius: 25px;
-            height: 55px;
-            width: 280px;
-            margin-left: 80px;
-        }
-        #pokazZdjecie {
-
-        }
+       <?php 
+           include('style.css');
+       ?>
     </style> 
 </head>
 <body>
     <section class="header">
         <?php 
-        //  <section class="sidebar"></section>
         if((!isset($_SESSION['zalogowany']))){
-            echo '<a href="logowanie.html">Zaloguj się</a>';
+            echo '
+                <img src="panda.jpg" class="doGory" alt="logo pandagadzety" height="81px" width="200px">
+                <a class="button log" href="logowanie.html">Zaloguj się</a> 
+            ';
         }
         else {
             echo '
             <div class="headerWrapper">
-            <div class="imie">Uzytkownik: '.$_SESSION['imie'].'</div> 
-            <a class="wylog" href="logout.php">Wyloguj się</a>
+                <div class="imie"> Witaj '.$_SESSION['imie'].'!</div> 
+                <img src="panda.jpg" alt="logo pandagadzety" height="40.5px" width="100px">
+                <a class="button wylog" href="logout.php">Wyloguj się</a>
             </div>' ;
         
     ?></section>
     <section class="main">
         <section class="hero">
             <div class="heroWrapper">
-        <?php echo' <form action="dodaj.php" method="post" enctype="multipart/form-data">
+                <h1>Dodaj produkt do bazy danych</h1>
+        <?php echo' 
+        <form action="dodaj.php" method="post" enctype="multipart/form-data">
                 <div class="nazwaContainer">
                     <label for="nazwaProd">Nazwa produktu: </label>
                     <input list="nazwyProd" name="nazwaProd" id="nazwaProd" placeholder="nazwa produktu">
                     <datalist id="nazwyProd"></datalist>
+                </div>
+                <div class="kodProduktu">
+                    <label for="kodProduktu">Kod produktu: </label>
+                    <input list="kodyProduktu" name="kodProduktu" id="kodProduktu"> 
+                    <datalist id="kodyProduktu"></datalist>
                 </div>
                 <div class="pozycjaContainer">
                     <label for="pozycjaZnakowania">Pozycja znakowania: </label>
@@ -167,15 +66,6 @@ session_start();
                     <label for="kolor">Kolor: </label>
                     <input list="kolory" name="kolor" id="kolor">
                     <datalist id="kolory"></datalist>
-                </div>
-                <div class="kodProduktu">
-                    <label for="kodProduktu">Kod produktu: </label>
-                    <input list="kodyProduktu" name="kodProduktu" id="kodProduktu"> 
-                    <datalist id="kodyProduktu"></datalist>
-                </div>
-                <div class="data">
-                    <label for="data">Data: </label>
-                    <input type="date" name="data" id="data">
                 </div>
                 <div class="wybor">
                     <div class="wlasny">
@@ -202,27 +92,18 @@ session_start();
                     <input type="text" name="cena" id="cenaId" placeholder="0.00">
                 </div>
                 <div class="zdjecie">
-                    <label for="zdjecie">Zdjęcie(maksymalnie 64KB!): </label>
+                    <label for="zdjecie">Zdjęcie(maksymalnie 16MB!): </label>
                     <input type="file" name="zdjecie" id="zdjecie" accept="image/gif, image/jpeg, image/png">
                 </div>
-                <input type="submit" value="Dodaj produkt" id="dodajProdukt">
-            </form>';}
+                <input type="submit" value="Dodaj produkt" id="dodajProdukt" class="przycisk">
+        </form>';}
             ?>
             </div>
-            <div id="pokazZdjecie">Tu pojawi się obraz</div>
+            </div>
         </section>
         </section>
         <script>
             getNazwyProd(); toggleTechnologia(); toggleIloscKolorow(); getKolory(); toggleOff('sprowadzony'); toggleOff('cena');
-            function wyswietlZdjecie(tablicaZdj) {
-                let zdjecia = ""
-                tablicaZdj.forEach((zdj) => {
-                zdjecia += `<img src="${URL.createObjectURL(zdj)}" alt="image" height="50%" width="50%">`;
-                });
-                document.getElementById('pokazZdjecie').innerHTML = '';
-                document.getElementById('pokazZdjecie').innerHTML = zdjecia;
-
-            }
             document.getElementById('zdjecie').addEventListener('change', function() {
                 let tablicaZdj = [];
                 const plik = document.getElementById('zdjecie').files;

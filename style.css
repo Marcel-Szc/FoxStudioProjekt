@@ -1,0 +1,174 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width:100vw;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+.main {
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    height:92%;
+}
+.header {
+    height: 8%;
+}
+.header * {
+    font-size: 20px; 
+}
+.headerWrapper {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+}
+.doGory {
+    position: absolute;
+    bottom: 52rem;
+    left: 53rem;
+
+}
+.log {
+    position: absolute;
+    bottom: 20rem;
+    left: 56rem;
+}
+.button {
+    text-decoration: none;
+    color: black;
+    background-color:#1a6283; 
+    border: 0px;
+    padding: 10px;
+    border-radius: 25px; 
+}
+.button:hover {
+    background-color: #15475e;
+    color: whitesmoke;
+}
+.button:active{
+    background-color: #26789e;
+    padding: 8px;
+    margin-top: 3px;
+    margin-left:762px;
+    margin-right: 3px;
+    font-size: 18px;
+}
+.log:active {
+    margin-left:12px;
+}
+.wylog {
+    margin-left: 750px;
+}
+.imie {
+    margin-right: 750px;
+}
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+h1 {
+    text-align: center;
+    font-size: 24px;
+}
+form {
+    width: 100%;
+    margin: 20px;
+}
+form *{
+    font-size: 16px;
+}
+form div {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+}
+.wybor {
+    display: flex;
+    flex-direction: row;
+}
+.wybor * {
+    margin-left: 12px;
+    display: flex;
+    flex-direction: row;
+}
+.wybor * input {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    width: 20px;
+    height:20px;
+} 
+.wybor .wlasny label {
+    width: 130px;
+    margin-left: 0px;
+}
+.wybor .cudzy label {
+    width: 200px;
+}
+input {
+    padding: 5px;
+    margin: 5px;
+    width: 450px;
+}
+.sprowadzony {
+    flex-direction: row;
+}
+.sprowadzony * input{
+    width: 220px;
+} 
+.cenaOryginalna label, .marza label {
+    width: 200px;
+}
+.zdjecie #zdjecie{
+    width: 370px;
+    margin-left: 80px;
+}
+label {
+    width: 400px;
+}
+.zdjecie label {
+    margin-left: 105px;
+}
+input[list] {
+    width: 450px;
+}
+.przycisk {
+    background-color:#2cb3e9;
+    border: 0px;
+    border-radius: 25px;
+    height: 55px;
+    width: 280px;
+    margin-left: 80px;
+}
+.przycisk:hover{
+    background-color: #2ea2cf;
+}
+.przycisk:active{
+    background-color: #67cdf5;
+    height: 53px;
+    width: 270px;
+    margin-left: 85px;
+    margin-top: 7px;
+}
+.logowanie {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.przyciskLogowania {
+    margin-left: 50px;
+    margin-top: 20px;
+}
+.logowanieTytul{
+    font-size: 28px;
+    font-weight: 800;
+}

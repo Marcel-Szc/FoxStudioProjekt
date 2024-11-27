@@ -1,7 +1,7 @@
 <?php
     include_once('polaczenie.php');
     
-    $zapytanieKolor = 'SELECT DISTINCT kolor FROM produkty ORDER BY kolor ASC';
+    $zapytanieKolor = 'SELECT DISTINCT kolor FROM znakowanie;';
     $stmt = $polaczenie->prepare($zapytanieKolor);
     $stmt->execute();
     $result = $stmt->get_result();

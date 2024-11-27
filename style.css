@@ -32,7 +32,6 @@ body {
     position: absolute;
     bottom: 52rem;
     left: 53rem;
-
 }
 .log {
     position: absolute;
@@ -72,51 +71,101 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 90%;
+    height:90%;
+}
+.heroWrapper {
     width: 100%;
 }
 h1 {
     text-align: center;
     font-size: 24px;
+    padding-bottom: 40px;
+    margin-left: 140px;
 }
 form {
     width: 100%;
     margin: 20px;
+    display: flex;
+    align-items: center;
 }
-form *{
+.mainForm {
+    width: 42%;
+    margin-top: 40px;
+}
+form .mainForm *{
     font-size: 16px;
 }
-form div {
+.nazwaContainer, .kodProduktu, .cena, .zdjecie {
     display: flex;
-    flex-direction: column;
-    width: 450px;
+    flex-direction:column;
+    width: 200px;
+    margin-left: 100px;
 }
 .wybor {
     display: flex;
-    flex-direction: row;
+    width: 400px;
+    margin-left: 100px;
 }
-.wybor * {
-    margin-left: 12px;
+.cudzy, .wlasny, .sprowadzony {
     display: flex;
-    flex-direction: row;
 }
-.wybor * input {
+.sprowadzony {
+    margin-left: 100px;
+}
+.cenaOryginalna, .marza {
+    display: flex;
+    flex-direction: column;
+}
+.mainForm input {
+    padding: 5px;
+    margin: 5px;
+    width: 450px;
+}
+.sideForm {
+    width: 58%;
+    height: 50vh;
+    margin-bottom: 0px;
+}
+.sideFormZnakowanie div {
+    display: flex;
+    flex-direction: column;
+}
+#sideFormWrapper1, #sideFormWrapper2, #sideFormWrapper3{
+    display: flex;
+    width: 100%;
+    height: 33.3%;
+    margin-top: 40px;
+    margin-left: 50px;
+}
+.sideFormZnakowanie{
+    margin-left: 50px;
+    margin-top: -60px;
+}
+.sideForm input{
+    width: 250px;
+    font-size: 14px;
+} 
+.sideForm label {
+    font-size: 16px;
+    width: 250px;
+}
+.wybor div input {
     display: flex;
     flex-direction: row;
     margin-top: 10px;
     width: 20px;
     height:20px;
 } 
+.cudy, .wlasny {
+    width: 200px;
+}
 .wybor .wlasny label {
     width: 130px;
     margin-left: 0px;
 }
 .wybor .cudzy label {
     width: 200px;
-}
-input {
-    padding: 5px;
-    margin: 5px;
-    width: 450px;
 }
 .sprowadzony {
     flex-direction: row;
@@ -137,9 +186,6 @@ label {
 .zdjecie label {
     margin-left: 105px;
 }
-input[list] {
-    width: 450px;
-}
 .przycisk {
     background-color:#2cb3e9;
     border: 0px;
@@ -147,6 +193,9 @@ input[list] {
     height: 55px;
     width: 280px;
     margin-left: 80px;
+}
+#dodajProdukt {
+    margin-left: 100px;
 }
 .przycisk:hover{
     background-color: #2ea2cf;

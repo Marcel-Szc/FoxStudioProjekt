@@ -39,6 +39,7 @@ session_start();
         <?php echo' 
         <form action="dodaj.php" method="post" enctype="multipart/form-data">
             <div class="mainForm">
+                <h2>Dane produktu: </h2>
                 <div class="nazwaContainer">
                     <label for="nazwaProd">Nazwa produktu: </label>
                     <input list="nazwyProd" name="nazwaProd" id="nazwaProd" placeholder="nazwa produktu">
@@ -79,219 +80,45 @@ session_start();
                 </div>
             </div>
             <div class="sideForm">
-                <div id="sideFormWrapper1">
-                    <div id="sideForm1" class="sideFormZnakowanie">
-                            <div class="pozycjaContainer">
-                            <label for="pozycjaZnakowania">Pozycja znakowania: </label>
-                            <input list="pozycjeZnakowania" name="pozycjaZnakowania" id="pozycjaZnakowania1" placeholder="pozycja znakowania">
-                            <datalist id="pozycjeZnakowania"></datalist>
-                        </div>
-                        <div id="technologiaContainer">
-                            <label for="technologiaZnakowania">Technologia znakowania: </label>
-                            <input list="technologieZnakowania" name="technologiaZnakowania" id="technologiaZnakowania1"  placeholder="technologia znakowania">
-                            <datalist id="technologieZnakowania"></datalist>
-                        </div>       
-                        <div id="iloscKolorowContainer">
-                            <label for="iloscKolorow">Ilosc kolorow: </label>   
-                            <input type="number" name="iloscKolorow" id="iloscKolorow1" value="1">
-                        </div>
-                        <div class="kolor">
-                            <label for="kolor">Kolor: </label>
-                            <input list="kolory" name="kolor" id="kolor1">
-                            <datalist id="kolory"></datalist>
-                        </div>
+                <div id = "sideFormWrapper1">
+                    <h2>Opcje znakowania 1:</h2>
+                    <div class="pozycjaContainer">
+                        <label for="pozycjaZnakowania">Pozycja znakowania: </label>
+                        <input list="pozycjeZnakowania" name="pozycjaZnakowania" id="pozycjaZnakowania" placeholder="pozycja znakowania">
+                        <datalist id="pozycjeZnakowania"></datalist>
                     </div>
-                    <div id="sideForm2" class="sideFormZnakowanie">
-                            <div class="pozycjaContainer">
-                            <label for="pozycjaZnakowania">Pozycja znakowania: </label>
-                            <input list="pozycjeZnakowania" name="pozycjaZnakowania" id="pozycjaZnakowania2" placeholder="pozycja znakowania">
-                            <datalist id="pozycjeZnakowania"></datalist>
-                        </div>
-                        <div id="technologiaContainer">
-                            <label for="technologiaZnakowania">Technologia znakowania: </label>
-                            <input list="technologieZnakowania" name="technologiaZnakowania" id="technologiaZnakowania2"  placeholder="technologia znakowania">
-                            <datalist id="technologieZnakowania"></datalist>
-                        </div>       
-                        <div id="iloscKolorowContainer">
-                            <label for="iloscKolorow">Ilosc kolorow: </label>   
-                            <input type="number" name="iloscKolorow" id="iloscKolorow2" value="1">
-                        </div>
-                        <div class="kolor">
-                            <label for="kolor">Kolor: </label>
-                            <input list="kolory" name="kolor" id="kolor2">
-                            <datalist id="kolory"></datalist>
-                        </div>
+                    <div id="technologiaContainer">
+                        <label for="technologiaZnakowania">Technologia znakowania: </label>
+                        <input list="technologieZnakowania" name="technologiaZnakowania" id="technologiaZnakowania"  placeholder="technologia znakowania">
+                        <datalist id="technologieZnakowania"></datalist>
+                    </div>       
+                    <div id="iloscKolorowContainer">
+                        <label for="iloscKolorow">Ilosc kolorow: </label>   
+                        <input type="number" name="iloscKolorow" id="iloscKolorow" value="1">
                     </div>
-                    <div id="sideForm3" class="sideFormZnakowanie">
-                            <div class="pozycjaContainer">
-                            <label for="pozycjaZnakowania">Pozycja znakowania: </label>
-                            <input list="pozycjeZnakowania" name="pozycjaZnakowania" id="pozycjaZnakowania3" placeholder="pozycja znakowania">
-                            <datalist id="pozycjeZnakowania"></datalist>
-                        </div>
-                        <div id="technologiaContainer">
-                            <label for="technologiaZnakowania">Technologia znakowania: </label>
-                            <input list="technologieZnakowania" name="technologiaZnakowania" id="technologiaZnakowania3"  placeholder="technologia znakowania">
-                            <datalist id="technologieZnakowania"></datalist>
-                        </div>       
-                        <div id="iloscKolorowContainer">
-                            <label for="iloscKolorow">Ilosc kolorow: </label>   
-                            <input type="number" name="iloscKolorow" id="iloscKolorow3" value="1">
-                        </div>
-                        <div class="kolor">
-                            <label for="kolor">Kolor: </label>
-                            <input list="kolory" name="kolor" id="kolor3">
-                            <datalist id="kolory"></datalist>
-                        </div>
+                    <div class="kolor">
+                        <label for="kolor">Kolor: </label>
+                        <input list="kolory" name="kolor" id="kolor">
+                        <datalist id="kolory"></datalist>
                     </div>
                 </div>
-                <div id="sideFormWrapper2">
-                    <div id="sideForm4" class="sideFormZnakowanie">
-                            <div class="pozycjaContainer">
-                            <label for="pozycjaZnakowania">Pozycja znakowania: </label>
-                            <input list="pozycjeZnakowania" name="pozycjaZnakowania" id="pozycjaZnakowania4" placeholder="pozycja znakowania">
-                            <datalist id="pozycjeZnakowania"></datalist>
-                        </div>
-                        <div id="technologiaContainer">
-                            <label for="technologiaZnakowania">Technologia znakowania: </label>
-                            <input list="technologieZnakowania" name="technologiaZnakowania" id="technologiaZnakowania4"  placeholder="technologia znakowania">
-                            <datalist id="technologieZnakowania"></datalist>
-                        </div>       
-                        <div id="iloscKolorowContainer">
-                            <label for="iloscKolorow">Ilosc kolorow: </label>   
-                            <input type="number" name="iloscKolorow" id="iloscKolorow4" value="1">
-                        </div>
-                        <div class="kolor">
-                            <label for="kolor">Kolor: </label>
-                            <input list="kolory" name="kolor" id="kolor4">
-                            <datalist id="kolory"></datalist>
-                        </div>
-                    </div>
-                    <div id="sideForm5" class="sideFormZnakowanie">
-                            <div class="pozycjaContainer">
-                            <label for="pozycjaZnakowania">Pozycja znakowania: </label>
-                            <input list="pozycjeZnakowania" name="pozycjaZnakowania" id="pozycjaZnakowania5" placeholder="pozycja znakowania">
-                            <datalist id="pozycjeZnakowania"></datalist>
-                        </div>
-                        <div id="technologiaContainer">
-                            <label for="technologiaZnakowania">Technologia znakowania: </label>
-                            <input list="technologieZnakowania" name="technologiaZnakowania" id="technologiaZnakowania5"  placeholder="technologia znakowania">
-                            <datalist id="technologieZnakowania"></datalist>
-                        </div>       
-                        <div id="iloscKolorowContainer">
-                            <label for="iloscKolorow">Ilosc kolorow: </label>   
-                            <input type="number" name="iloscKolorow" id="iloscKolorow5" value="1">
-                        </div>
-                        <div class="kolor">
-                            <label for="kolor">Kolor: </label>
-                            <input list="kolory" name="kolor" id="kolor5">
-                            <datalist id="kolory"></datalist>
-                        </div>
-                    </div>
-                    <div id="sideForm6" class="sideFormZnakowanie">
-                            <div class="pozycjaContainer">
-                            <label for="pozycjaZnakowania">Pozycja znakowania: </label>
-                            <input list="pozycjeZnakowania" name="pozycjaZnakowania" id="pozycjaZnakowania6" placeholder="pozycja znakowania">
-                            <datalist id="pozycjeZnakowania"></datalist>
-                        </div>
-                        <div id="technologiaContainer">
-                            <label for="technologiaZnakowania">Technologia znakowania: </label>
-                            <input list="technologieZnakowania" name="technologiaZnakowania" id="technologiaZnakowania6"  placeholder="technologia znakowania">
-                            <datalist id="technologieZnakowania"></datalist>
-                        </div>       
-                        <div id="iloscKolorowContainer">
-                            <label for="iloscKolorow">Ilosc kolorow: </label>   
-                            <input type="number" name="iloscKolorow" id="iloscKolorow6" value="1">
-                        </div>
-                        <div class="kolor">
-                            <label for="kolor">Kolor: </label>
-                            <input list="kolory" name="kolor" id="kolor6">
-                            <datalist id="kolory"></datalist>
-                        </div>
-                    </div>
-                </div>
-                <div id="sideFormWrapper3">
-                    <div id="sideForm7" class="sideFormZnakowanie">
-                            <div class="pozycjaContainer">
-                            <label for="pozycjaZnakowania">Pozycja znakowania: </label>
-                            <input list="pozycjeZnakowania" name="pozycjaZnakowania" id="pozycjaZnakowania7" placeholder="pozycja znakowania">
-                            <datalist id="pozycjeZnakowania"></datalist>
-                        </div>
-                        <div id="technologiaContainer">
-                            <label for="technologiaZnakowania">Technologia znakowania: </label>
-                            <input list="technologieZnakowania" name="technologiaZnakowania" id="technologiaZnakowania7"  placeholder="technologia znakowania">
-                            <datalist id="technologieZnakowania"></datalist>
-                        </div>       
-                        <div id="iloscKolorowContainer">
-                            <label for="iloscKolorow">Ilosc kolorow: </label>   
-                            <input type="number" name="iloscKolorow" id="iloscKolorow4" value="1">
-                        </div>
-                        <div class="kolor">
-                            <label for="kolor">Kolor: </label>
-                            <input list="kolory" name="kolor" id="kolor7">
-                            <datalist id="kolory"></datalist>
-                        </div>
-                    </div>
-                    <div id="sideForm8" class="sideFormZnakowanie">
-                            <div class="pozycjaContainer">
-                            <label for="pozycjaZnakowania">Pozycja znakowania: </label>
-                            <input list="pozycjeZnakowania" name="pozycjaZnakowania" id="pozycjaZnakowania8" placeholder="pozycja znakowania">
-                            <datalist id="pozycjeZnakowania"></datalist>
-                        </div>
-                        <div id="technologiaContainer">
-                            <label for="technologiaZnakowania">Technologia znakowania: </label>
-                            <input list="technologieZnakowania" name="technologiaZnakowania" id="technologiaZnakowania8"  placeholder="technologia znakowania">
-                            <datalist id="technologieZnakowania"></datalist>
-                        </div>       
-                        <div id="iloscKolorowContainer">
-                            <label for="iloscKolorow">Ilosc kolorow: </label>   
-                            <input type="number" name="iloscKolorow" id="iloscKolorow8" value="1">
-                        </div>
-                        <div class="kolor">
-                            <label for="kolor">Kolor: </label>
-                            <input list="kolory" name="kolor" id="kolor">
-                            <datalist id="kolory"></datalist>
-                        </div>
-                    </div>
-                    <div id="sideForm9" class="sideFormZnakowanie">
-                            <div class="pozycjaContainer">
-                            <label for="pozycjaZnakowania">Pozycja znakowania: </label>
-                            <input list="pozycjeZnakowania" name="pozycjaZnakowania" id="pozycjaZnakowania9" placeholder="pozycja znakowania">
-                            <datalist id="pozycjeZnakowania"></datalist>
-                        </div>
-                        <div id="technologiaContainer">
-                            <label for="technologiaZnakowania">Technologia znakowania: </label>
-                            <input list="technologieZnakowania" name="technologiaZnakowania" id="technologiaZnakowania9"  placeholder="technologia znakowania">
-                            <datalist id="technologieZnakowania"></datalist>
-                        </div>       
-                        <div id="iloscKolorowContainer">
-                            <label for="iloscKolorow">Ilosc kolorow: </label>   
-                            <input type="number" name="iloscKolorow" id="iloscKolorow9" value="1">
-                        </div>
-                        <div class="kolor">
-                            <label for="kolor">Kolor: </label>
-                            <input list="kolory" name="kolor" id="kolor9">
-                            <datalist id="kolory"></datalist>
-                        </div>
-                    </div>
-                </div>
+            </div>
                 <input type="submit" value="Dodaj produkt" id="dodajProdukt" class="przycisk">
             </div>
-        </form>';}
+        </form>
+        <button id="dodajZnak" class="przycisk">Dodaj opcje znakowania</button>
+        <button id="wroc" class="przycisk">Wróć do poprzedniego</button>
+        ';}
             ?>
-            <button id="dodajZnak">Dodaj opcje znakowania</button>
             </div>
             </div>
         </section>
         </section>
         <script>
             function base(){
-                getNazwyProd(); getKolory(); toggleOff('sprowadzony'); toggleOff('cena'); 
-                document.getElementsByClassName("sideForm")[0].style.width = "0%";
-                document.getElementsByClassName("mainForm")[0].style.width = "80%";
-                for(let i=1; i <= 9; i++){
-                    let sideFormDef = "sideForm" + i;
-                    document.getElementById(sideFormDef).style.display = "none";
-                }
+                getNazwyProd(); getKolory(); toggleOff('sprowadzony');
+                document.getElementById('wlasny').checked = true;
+                document.getElementById('wroc').style.display = "none";
             }
             base();
             document.getElementById('zdjecie').addEventListener('change', function() {
@@ -397,13 +224,56 @@ session_start();
                 getPozycjeZnakowania(nazwaProduktu);
                 getKodyProduktu(nazwaProduktu);
             });
-            let nr = 0;
-            document.getElementById("dodajZnak").addEventListener('click', function() {
-                nr += 1;
-                let sideForm = "sideForm" + 1;
-                document.getElementById(sideForm).style.display = "block";
-                
+            let optionCount = 1; // Zmienna do śledzenia liczby opcji znakowania
+            let opcjaPowrotu = 0;
+            document.getElementById('dodajZnak').addEventListener('click', function() {
+                if (optionCount == 1) {
+                    document.getElementById('wroc').style.display = "block";
+                }
+                const sideForm = document.getElementsByClassName('sideForm')[0];
+                let sideFormWrapper = "sideFormWrapper" + optionCount;
+                document.getElementById(sideFormWrapper).style.display = "none";
+                optionCount++;
+                 
+                const nowy = document.createElement('div');
+                let ile = 'sideFormWrapper' + optionCount;
+                nowy.setAttribute('id', ile);
+                nowy.innerHTML = `
+                        <h2>Opcje znakowania ${optionCount}:</h2>
+                    <div class="pozycjaContainer">
+                        <label for="pozycjaZnakowania${optionCount}">Pozycja znakowania: </label>
+                        <input list="pozycjeZnakowania" name="pozycjaZnakowania" id="pozycjaZnakowania${optionCount}" placeholder="pozycja znakowania">
+                        <datalist id="pozycjeZnakowania"></datalist>
+                    </div>
+                    <div id="technologiaContainer">
+                        <label for="technologiaZnakowania">Technologia znakowania: </label>
+                        <input list="technologieZnakowania" name="technologiaZnakowania" id="technologiaZnakowania${optionCount}"  placeholder="technologia znakowania">
+                        <datalist id="technologieZnakowania"></datalist>
+                    </div>       
+                    <div id="iloscKolorowContainer">
+                        <label for="iloscKolorow">Ilosc kolorow: </label>   
+                        <input type="number" name="iloscKolorow" id="iloscKolorow${optionCount}" value="1">
+                    </div>
+                    <div class="kolor">
+                        <label for="kolor">Kolor: </label>
+                        <input list="kolory" name="kolor" id="kolor${optionCount}">
+                        <datalist id="kolory"></datalist>
+                    </div>
+                `;
+                sideForm.appendChild(nowy);
+                opcjaPowrotu = optionCount;
             });
+            document.getElementById('wroc').addEventListener('click', function() { 
+                let sideFormWrapper = "sideFormWrapper" + opcjaPowrotu;
+                document.getElementById(sideFormWrapper).style.display = "none";
+                opcjaPowrotu--;
+                let sideFormUnwrapper = "sideFormWrapper" + opcjaPowrotu;
+                document.getElementById(sideFormUnwrapper).style.display = "block";
+                if(opcjaPowrotu == 1) {
+                    document.getElementById('wroc').style.display = "none";
+                }
+            });
+
         </script>
 </body>
 </html>

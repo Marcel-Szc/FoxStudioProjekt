@@ -45,6 +45,7 @@ body {
     border: 0px;
     padding: 10px;
     border-radius: 25px; 
+    font-size: 18px;
 }
 .button:hover {
     background-color: #15475e;
@@ -52,11 +53,6 @@ body {
 }
 .button:active{
     background-color: #26789e;
-    padding: 8px;
-    margin-top: 3px;
-    margin-left:762px;
-    margin-right: 3px;
-    font-size: 18px;
 }
 .log:active {
     margin-left:12px;
@@ -90,11 +86,26 @@ form {
     align-items: center;
 }
 .mainForm {
-    width: 42%;
+    width: 50%;
     margin-top: 40px;
+    margin-left: 200px;
+    margin-bottom: 50px;
 }
-form .mainForm *{
+.sideForm {
+    width: 38%;
+    margin-bottom: 50px;
+}
+.sideForm div{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+.mainForm div{
     font-size: 16px;
+}
+.mainForm h2{
+    width: 200px;
+    margin-left: 230px;
 }
 .nazwaContainer, .kodProduktu, .cena, .zdjecie {
     display: flex;
@@ -117,38 +128,10 @@ form .mainForm *{
     display: flex;
     flex-direction: column;
 }
-.mainForm input {
+input {
     padding: 5px;
-    margin: 5px;
+    margin: 10px;
     width: 450px;
-}
-.sideForm {
-    width: 58%;
-    height: 50vh;
-    margin-bottom: 0px;
-}
-.sideFormZnakowanie div {
-    display: flex;
-    flex-direction: column;
-}
-#sideFormWrapper1, #sideFormWrapper2, #sideFormWrapper3{
-    display: flex;
-    width: 100%;
-    height: 33.3%;
-    margin-top: 40px;
-    margin-left: 50px;
-}
-.sideFormZnakowanie{
-    margin-left: 50px;
-    margin-top: -60px;
-}
-.sideForm input{
-    width: 250px;
-    font-size: 14px;
-} 
-.sideForm label {
-    font-size: 16px;
-    width: 250px;
 }
 .wybor div input {
     display: flex;
@@ -162,7 +145,7 @@ form .mainForm *{
 }
 .wybor .wlasny label {
     width: 130px;
-    margin-left: 0px;
+    margin-left: 12px;
 }
 .wybor .cudzy label {
     width: 200px;
@@ -178,13 +161,14 @@ form .mainForm *{
 }
 .zdjecie #zdjecie{
     width: 370px;
-    margin-left: 80px;
+    margin-left: 120px;
 }
 label {
     width: 400px;
+    margin-left: 12px;
 }
 .zdjecie label {
-    margin-left: 105px;
+    margin-left: 125px;
 }
 .przycisk {
     background-color:#2cb3e9;
@@ -195,17 +179,31 @@ label {
     margin-left: 80px;
 }
 #dodajProdukt {
-    margin-left: 100px;
+    margin-left:-930px;
+    margin-top: 600px;
+    font-size: 18px;
+}
+#dodajZnak {
+    border-radius: 15px;
+    height: 37px;
+    width: 240px;
+    position: absolute;
+    bottom: 13rem;
+    left: 21rem;
+}
+#wroc{
+    border-radius: 15px;
+    height: 37px;
+    width: 240px;
+    position: absolute;
+    bottom: 13rem;
+    left: 69rem;
 }
 .przycisk:hover{
     background-color: #2ea2cf;
 }
 .przycisk:active{
     background-color: #67cdf5;
-    height: 53px;
-    width: 270px;
-    margin-left: 85px;
-    margin-top: 7px;
 }
 .logowanie {
     display: flex;

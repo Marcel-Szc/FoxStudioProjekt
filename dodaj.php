@@ -1,4 +1,5 @@
  <?php 
+ //
 include_once('polaczenie.php');
 $nazwaProduktu = $_POST['nazwaProd'];
 $pozycjaZnakowania = $_POST['pozycjaZnakowania'];

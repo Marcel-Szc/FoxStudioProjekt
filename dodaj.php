@@ -1,19 +1,6 @@
 <?php 
-    include_once('polaczenie.php');
-    require('fpdf/fpdf.php');
-    session_start();
-
-    if((!isset($_SESSION['zalogowany']))){
-        header("index.php");
-    }
-    else {
-        echo '
-        <div class="headerWrapper">
-            <div class="imie"> Witaj '.$_SESSION['imie'].'!</div> 
-            <img src="panda.jpg" alt="logo pandagadzety" height="40.5px" width="100px">
-            <a class="button wylog" href="logout.php">Wyloguj się</a>
-        </div>' ;
-    
+//
+include_once('polaczenie.php');
 
         $nazwaProduktu = $_POST['nazwaProd'];
         $kodProduktu = $_POST['kodProduktu'];

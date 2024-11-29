@@ -100,7 +100,6 @@ include_once('polaczenie.php');
                 break;
             }
         } 
-    }
     ?>
 
     <div class="main">

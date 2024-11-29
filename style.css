@@ -72,6 +72,7 @@ body {
 }
 .heroWrapper {
     width: 100%;
+    margin-left: -650px;
 }
 h1 {
     text-align: center;
@@ -89,7 +90,7 @@ form {
     width: 50%;
     margin-top: 40px;
     margin-left: 200px;
-    margin-bottom: 50px;
+    margin-bottom: 110px;
 }
 .sideForm {
     width: 38%;
@@ -191,13 +192,16 @@ label {
     bottom: 13rem;
     left: 21rem;
 }
-#wroc{
+#wroc, #przod{
     border-radius: 15px;
     height: 37px;
-    width: 240px;
+    width: 60px;
     position: absolute;
     bottom: 13rem;
-    left: 69rem;
+    left: 72rem;
+}
+#przod {
+    left: 76rem;
 }
 .przycisk:hover{
     background-color: #2ea2cf;

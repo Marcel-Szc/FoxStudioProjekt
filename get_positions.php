@@ -1,11 +1,8 @@
 <?php
     include_once('polaczenie.php');
 
-    if(isset($_GET['product'])) {
-        $product = $_GET['product'];
         $zapytaniePoz = "SELECT DISTINCT pozycja_znakowania FROM znakowanie;";
         $stmt = $polaczenie->prepare($zapytaniePoz);
-        $stmt->bind_param("s", $product);
         $stmt->execute();
         $result = $stmt->get_result();
         
@@ -15,5 +12,4 @@
         }
         
         echo json_encode($positions);
-    }
 ?>

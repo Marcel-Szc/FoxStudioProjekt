@@ -1,11 +1,8 @@
 <?php
-    include_once('polaczenie.php');
+    include('polaczenie.php');
 
-    if(isset($_GET['position'])) {
-        $position = $_GET['position'];
-        $zapytanieTech = "SELECT DISTINCT technologia_znakowania FROM produkty WHERE pozycja_znakowania = ? AND technologia_znakowania IS NOT NULL ORDER BY technologia_znakowania ASC";
+        $zapytanieTech = "SELECT DISTINCT technologia_znakowania FROM znakowanie WHERE technologia_znakowania IS NOT NULL ORDER BY technologia_znakowania ASC";
         $stmt = $polaczenie->prepare($zapytanieTech);
-        $stmt->bind_param("s", $position);
         $stmt->execute();
         $result = $stmt->get_result();
         
@@ -15,5 +12,4 @@
         }
         
         echo json_encode($technologies);
-    }
 ?>

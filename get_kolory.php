@@ -14,5 +14,4 @@
     }
 
     echo json_encode($positions);
-
 ?>

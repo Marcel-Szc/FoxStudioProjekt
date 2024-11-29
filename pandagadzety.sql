@@ -94,7 +94,8 @@ CREATE TABLE `znakowanie` (
   `pozycja_znakowania` varchar(255) NOT NULL,
   `technologia_znakowania` varchar(255) DEFAULT NULL,
   `ilosc_kolorow` int(11) DEFAULT NULL,
-  `kolor` varchar(50) DEFAULT NULL,
+  `kolor` varchar(50) NOT NULL,
+  `wplyw_na_cene` decimal(10,2) DEFAULT NULL,
   `nr_oferty` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

@@ -1,6 +1,7 @@
 <?php 
 //
 include_once('polaczenie.php');
+session_start();
 
         $nazwaProduktu = $_POST['nazwaProd'];
         $kodProduktu = $_POST['kodProduktu'];
@@ -23,7 +24,12 @@ include_once('polaczenie.php');
         }
 
         $zdjęcie = $_FILES['zdjecie']['tmp_name'];
+        $nazwaPliku = basename($_FILES['zdjecie']['name']);
         $zdjęcieImg = file_get_contents($zdjęcie);
+
+        $uploadDir = 'uploads/';
+        move_uploaded_file($zdjęcie, $uploadDir.$nazwaPliku);
+        $_SESSION['zdjecie'] = $uploadDir.$nazwaPliku;
 ?>
 <!DOCTYPE html>
 <html lang="en">

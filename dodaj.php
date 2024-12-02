@@ -23,6 +23,7 @@ include_once('polaczenie.php');
         }
 
         $zdjęcie = $_FILES['zdjecie']['tmp_name'];
+        $_SESSION['zdjecie'] = $zdjęcie;
         $zdjęcieImg = file_get_contents($zdjęcie);
 ?>
 <!DOCTYPE html>
@@ -47,6 +48,7 @@ include_once('polaczenie.php');
         
         $kluczObcy = $polaczenie->query("SELECT `nr_oferty` FROM `produkty` ORDER BY nr_oferty DESC LIMIT 1;");
         $nr_oferty = intval($kluczObcy->fetch_row()[0]) + 1;
+        $_SESSION['nr_oferty'] = $nr_oferty;
         
         $idc = null;
         $idz = null;
@@ -92,7 +94,6 @@ include_once('polaczenie.php');
                     $_SESSION['iloscKolorow'.$increment] = $iloscKolorow;
                     $_SESSION['kolor'.$increment] = $kolor;
                     $_SESSION['wplyw'.$increment] = $wplyw;
-                    $_SESSION['nr_oferty'] = $nr_oferty;
                 } catch (Throwable $e) {
                     echo "Błąd dodawania znakowania nr ".$increment.": ". $e->getMessage();
                 }

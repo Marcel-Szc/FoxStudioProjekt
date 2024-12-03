@@ -34,7 +34,7 @@ if(isset($_SESSION['nr_oferty'])) {
 // Create PDF
 $pdf = new tFPDF();
 $pdf->AddPage();
-$pdf->AddFont('DejaVu','','DejaVuSansCondensed.ttf',true);
+$pdf->AddFont();
 $pdf->SetFont('Arial','B',20);
 $pdf->Cell(60, 20, "Dane produktu: ");
 $pdf->Ln(20); // New line

@@ -39,11 +39,11 @@ $pdf->SetFont('Arial','B',20);
 $pdf->Cell(60, 20, "Dane produktu: ");
 $pdf->Ln(20); // New line
 $pdf->SetFont('DejaVu','',12);
-$pdf->Cell(0, 10, "Zdjecie produktu: ", 0, 1);
+$pdf->Cell(80, 80, "Zdjecie produktu: ", 0, 1);
 
 // Display session data in PDF
 foreach ($data as $item) {
-    $pdf->Image($item['zdjecie'], 120, 40, 60, 60);
+    $pdf->Image($item['zdjecie'], 60, 80, 60, 60);
     $pdf->Cell(0, 10, "Pozycja: " . $item['pozycja'], 1, 1);
     $pdf->Cell(0, 10, "Technologia: " . $item['technologia'], 1, 1);
     $pdf->Cell(0, 10, "Ilocs kolorów: " . $item['ilosc'], 1, 1);

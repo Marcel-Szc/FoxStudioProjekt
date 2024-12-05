@@ -16,7 +16,7 @@ function toggleOn($ktoryOn) {
 document.getElementById('cudzy').addEventListener('click', function() {
     if(document.getElementById('wlasny').checked) {
         document.getElementById('wlasny').checked = false;
-        document.getElementById('wlasny').setAttribute('required', false);
+        document.getElementById('wlasny').unchecked;
     }
     const $on = 'sprowadzony';
     const $off = 'cena';
@@ -26,7 +26,7 @@ document.getElementById('cudzy').addEventListener('click', function() {
 document.getElementById('wlasny').addEventListener('click', function() {
     if(document.getElementById('cudzy').checked) {
         document.getElementById('cudzy').checked = false;
-        document.getElementById('cudzy').setAttribute('required', false);
+        document.getElementById('cudzy').unchecked;
     }
     const $off = 'sprowadzony';
     const $on = 'cena';
@@ -138,7 +138,7 @@ function dodajZnakowanie() {
         </div>
         <div class="zdjecie">
             <label for="zdjecie">Zdjęcie(maksymalnie 16MB!): </label>
-            <input type="file" name="zdjecie${optionCount}" id="zdjecie" accept="image/gif, image/jpeg, image/png" required>
+            <input type="file" name="zdjecie${optionCount}" id="zdjecie${optionCount}" accept="image/gif, image/jpeg, image/png" required>
         </div>
     `;
     sideForm.appendChild(nowy);

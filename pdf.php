@@ -12,25 +12,50 @@ if(isset($_SESSION['nr_oferty'])) {
     $wynikCena = $cenaBaza->get_result();
     $cenaFetch = $wynikCena->fetch_assoc();
 
+    $znakowanie = $polacznie->prepare("SELECT pozycja_znakowania as pozycja, technologia_znakowania as technologia, ilosc_kolorow, kolor, wplyw_na_cene FROM ZNAKOWANIE WHERE nr_oferty =".$nr_oferty.";");
+    $znakowanie->execute();
+    $wynikZnakowanie = $znakowanie->get_result();
+    $data = array();
+
+    foreach($wynikZnakowanie as $znak) {
+        $data[] = [
+            'pozycja' => $znak['pozycja'],
+            'technologia' => $znak['technologia'],
+            'ilosc' => $znak['ilosc_kolorow'],
+            'kolor' => $znak['kolor'],
+            'wplyw' => $znak['wplyw_na_cene'],
+            'cena' => intval($cenaFetch['cena']) + intval($znak['wplyw_na_cene']),
+            'nr_oferty' => $znak['nr_oferty']
+        ];
+    }
+    $directory = "./uploads";
+    $images = glob("$dir/*.{jpg,png,bmp}", GLOB_BRACE);
+
+    foreach($images as $image)
+    {
+        $data[] = [
+            'zdjecie' => $image
+        ];
+    }
     while(true) {
         $increment++;
         if(isset($_SESSION['pozycjaZnakownia'.$increment]) || isset($_SESSION['technologiaZnakowania'.$increment]) || isset($_SESSION['iloscKolorow'.$increment]) || isset($_SESSION['kolor'.$increment]) || isset($_SESSION['wplyw'.$increment]) || isset($_SESSION['zdjecie'.$increment])) {
-
             $data[] = [
                 'pozycja' => $_SESSION['pozycjaZnakownia'.$increment],
                 'technologia' => $_SESSION['technologiaZnakowania'.$increment],
                 'ilosc' => $_SESSION['iloscKolorow'.$increment],
                 'kolor' => $_SESSION['kolor'.$increment],
                 'wplyw' => $_SESSION['wplyw'.$increment],
-                'cena' => $cenaFetch['cena'] + $_SESSION['wplyw'.$increment],
+                'cena' => intval($cenaFetch['cena']) + intval($_SESSION['wplyw'.$increment]),
                 'zdjecie' => $_SESSION['zdjecie'.$increment],
                 'nr_oferty' => $_SESSION['nr_oferty']
             ];
-            
         } else {
             break;
         }
-    }
+    };
+
+
     $produkt = $polaczenie->prepare("SELECT nazwa_produktu, kod_produktu FROM produkty WHERE nr_oferty =".$nr_oferty.";");
     $produkt->execute();
     $wynik = $produkt->get_result();
@@ -50,29 +75,25 @@ if(isset($_SESSION['nr_oferty'])) {
         $pdf->Cell(0, 10, "Marza produktu: ".$marza."%", 1, 1);
     }
    
-    
-    // Image handling
-    $imagePath = $data[0]['zdjecie']; // Assuming the image is the same for all items
-    list($width, $height) = getimagesize($imagePath);
-    $maxWidth = 66.66666666667; // Set your desired max width
-    $maxHeight = 40; // Set your desired max height
-
-    // Calculate the scaling factor based on the height
-    if ($height > $maxHeight) {
-        $ratio = $maxHeight / $height; // Scale down more if height is greater than maxHeight
-    } else {
-        $ratio = min($maxWidth / $width, $maxHeight / $height); // Normal scaling
-    }
-
-    $newWidth = $width * $ratio;
-    $newHeight = $height * $ratio;
-
-    $incrementCheck = 0;
     foreach ($data as $item) {
-        $incrementCheck++;
-        if($incrementCheck % 4 == 0){
+        if($increment % 2 == 0){
             $pdf->AddPage(); 
         }
+        // Image handling
+        $imagePath = $data[0]['zdjecie']; // Assuming the image is the same for all items
+        list($width, $height) = getimagesize($imagePath);
+        $maxWidth = 66.66666666667; // Set your desired max width
+        $maxHeight = 40; // Set your desired max height
+
+        // Calculate the scaling factor based on the height
+        if ($height > $maxHeight) {
+            $ratio = $maxHeight / $height; // Scale down more if height is greater than maxHeight
+        } else {
+            $ratio = min($maxWidth / $width, $maxHeight / $height); // Normal scaling
+        }
+
+        $newWidth = $width * $ratio;
+        $newHeight = $height * $ratio;
         
         $pdf->Cell(0, 10, "Pozycja: " . $item['pozycja'], 1, 1);
         $pdf->Cell(0, 10, "Technologia: " . $item['technologia'], 1, 1);
@@ -85,5 +106,19 @@ if(isset($_SESSION['nr_oferty'])) {
     }
     
     $pdf->Output();
+    $folder_path = "myGeeks"; 
+   
+// List of name of files inside 
+// specified folder 
+$files = glob($folder_path.'/*');  
+   
+// Deleting all the files in the list 
+foreach($files as $file) { 
+   
+    if(is_file($file))  
+    
+        // Delete the given file 
+        unlink($file);  
+} 
 }
 ?>

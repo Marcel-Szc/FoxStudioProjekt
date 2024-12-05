@@ -37,10 +37,9 @@ session_start();
         $idz = null;
         
          try {
-            $insert = "INSERT INTO `produkty` (`nr_oferty`, `nazwa_produktu`, `kod_produktu`, `zdjecie_produktu`) VALUES (?, ?, ?, ?);";
+            $insert = "INSERT INTO `produkty` (`nr_oferty`, `nazwa_produktu`, `kod_produktu`) VALUES (?, ?, ?);";
             $stmt = $polaczenie->prepare($insert);
-            $stmt->bind_param("ssss", $nr_oferty, $nazwaProduktu, $kodProduktu, $zdjęcieImg);
-            $stmt->send_long_data(0, $zdjęcieImg);
+            $stmt->bind_param("sss", $nr_oferty, $nazwaProduktu, $kodProduktu);
             $stmt->execute();
             echo "Produkt został dodany pomyślnie!<br>";
         } catch (Throwable $th) {
@@ -65,42 +64,36 @@ session_start();
                 $iloscKolorow = $_POST['iloscKolorow'.$increment];
                 $kolor = $_POST['kolor'.$increment];
                 $wplyw = $_POST['wplyw'.$increment];
+                if ($_FILES['zdjecie'.$increment]['error'] !== UPLOAD_ERR_OK) {
+                    switch ($_FILES['zdjecie'.$increment]['error']) { // Ensure this line is correct
+                        case UPLOAD_ERR_INI_SIZE:
+                        case UPLOAD_ERR_FORM_SIZE:
+                            echo "Plik jest za duży!. <br> <a href='index.php'>Powrót do strony głównej</a>";
+                            exit;
+                        case UPLOAD_ERR_NO_FILE:
+                            echo "Plik nie został przesłany!. <br> <a href='index.php'>Powrót do strony głównej</a>";
+                            exit;
+                        default:
+                            echo "Wystąpił nieznany błąd. <br> <a href='index.php'>Powrót do strony głównej</a>";
+                            exit;
+                    }
+                }
+        
+                $zdjęcie = $_FILES['zdjecie'.$increment]['tmp_name'];
+                echo $zdjęcie;
+                $nazwaPliku = basename($_FILES['zdjecie'.$increment]['name']);
+                $zdjęcieImg = file_get_contents($zdjęcie);
+        
+                $uploadDir = 'uploads/';
+                move_uploaded_file($zdjęcie, $uploadDir.$nazwaPliku);
+
                 try {
-                    $insertZnak = "INSERT INTO `znakowanie` (`idz`, `pozycja_znakowania`, `technologia_znakowania`, `ilosc_kolorow`, `kolor`, `wplyw_na_cene`, `nr_oferty`) VALUES (?, ?, ?, ?, ?, ?, ?);";
+                    $insertZnak = "INSERT INTO `znakowanie` (`idz`, `pozycja_znakowania`, `technologia_znakowania`, `ilosc_kolorow`, `kolor`, `wplyw_na_cene`, `zdjecie_produktu`, `nr_oferty`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
                     $stmtZnak = $polaczenie->prepare($insertZnak);
-                    $stmtZnak->bind_param("sssssss", $idz, $pozycjaZnakowania, $technologiaZnakowania, $iloscKolorow, $kolor, $wplyw, $nr_oferty);
+                    $stmtZnak->bind_param("ssssssss", $idz, $pozycjaZnakowania, $technologiaZnakowania, $iloscKolorow, $kolor, $wplyw, $zdjęcieImg, $nr_oferty);
+                    $stmt->send_long_data(0, $zdjęcieImg);
                     $stmtZnak->execute();
                     echo "Znakowanie zostało dodane pomyślnie!<br>";
-
-                    if ($_FILES['zdjecie']['error'] !== UPLOAD_ERR_OK) {
-                        switch ($_FILES['zdjecie']['error']) {
-                            case UPLOAD_ERR_INI_SIZE:
-                            case UPLOAD_ERR_FORM_SIZE:
-                                echo "Plik jest za duży!. <br> <a href='index.php'>Powrót do strony głównej</a>";
-                                exit;
-                            case UPLOAD_ERR_NO_FILE:
-                                echo "Plik nie został przesłany!. <br> <a href='index.php'>Powrót do strony głównej</a>";
-                                exit;
-                            default:
-                                echo "Wystąpił nieznany błąd. <br> <a href='index.php'>Powrót do strony głównej</a>";
-                                exit;
-                        }
-                    }
-            
-                    $zdjęcie = $_FILES['zdjecie']['tmp_name'];
-                    $nazwaPliku = basename($_FILES['zdjecie']['name']);
-                    $zdjęcieImg = file_get_contents($zdjęcie);
-            
-                    $uploadDir = 'uploads/';
-                    move_uploaded_file($zdjęcie, $uploadDir.$nazwaPliku.$increment);
-
-                    $_SESSION['zdjecie'.$increment] = $uploadDir.$nazwaPliku;
-                    $_SESSION['pozycjaZnakownia'.$increment] = $pozycjaZnakowania;
-                    $_SESSION['technologiaZnakowania'.$increment] = $technologiaZnakowania;
-                    $_SESSION['iloscKolorow'.$increment] = $iloscKolorow;
-                    $_SESSION['kolor'.$increment] = $kolor;
-                    $_SESSION['wplyw'.$increment] = $wplyw;
-                    $_SESSION['nr_oferty'] = $nr_oferty;
 
                 } catch (Throwable $e) {
                     echo "Błąd dodawania znakowania nr ".$increment.": ". $e->getMessage();
@@ -109,6 +102,7 @@ session_start();
                 break;
             }
         } 
+        $increment = 0;
     ?>
 
     <div class="main">

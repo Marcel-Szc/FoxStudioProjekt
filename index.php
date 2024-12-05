@@ -74,10 +74,6 @@ session_start();
                             <label for="cenaId">Cena(zł): </label>
                             <input type="text" name="cena" id="cenaId" placeholder="0.00" >
                         </div>
-                        <div class="zdjecie">
-                            <label for="zdjecie">Zdjęcie(maksymalnie 16MB!): </label>
-                            <input type="file" name="zdjecie" id="zdjecie" accept="image/gif, image/jpeg, image/png" required>
-                        </div>
                     </div>
                     <div class="sideForm">
                         </div>

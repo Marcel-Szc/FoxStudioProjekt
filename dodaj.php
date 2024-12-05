@@ -2,32 +2,8 @@
 //
 include_once('polaczenie.php');
 session_start();
-
-        $nazwaProduktu = $_POST['nazwaProd'];
-        $kodProduktu = $_POST['kodProduktu'];
-
-        if ($_FILES['zdjecie']['error'] !== UPLOAD_ERR_OK) {
-            switch ($_FILES['zdjecie']['error']) {
-                case UPLOAD_ERR_INI_SIZE:
-                case UPLOAD_ERR_FORM_SIZE:
-                    echo "Plik jest za duży!. <br> <a href='index.php'>Powrót do strony głównej</a>";
-                    exit;
-                case UPLOAD_ERR_NO_FILE:
-                    echo "Plik nie został przesłany!. <br> <a href='index.php'>Powrót do strony głównej</a>";
-                    exit;
-                default:
-                    echo "Wystąpił nieznany błąd. <br> <a href='index.php'>Powrót do strony głównej</a>";
-                    exit;
-            }
-        }
-
-        $zdjęcie = $_FILES['zdjecie']['tmp_name'];
-        $nazwaPliku = basename($_FILES['zdjecie']['name']);
-        $zdjęcieImg = file_get_contents($zdjęcie);
-
-        $uploadDir = 'uploads/';
-        move_uploaded_file($zdjęcie, $uploadDir.$nazwaPliku);
-        $_SESSION['zdjecie'] = $uploadDir.$nazwaPliku;
+    $nazwaProduktu = $_POST['nazwaProd'];
+    $kodProduktu = $_POST['kodProduktu'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,12 +72,36 @@ session_start();
                     $stmtZnak->execute();
                     echo "Znakowanie zostało dodane pomyślnie!<br>";
 
+                    if ($_FILES['zdjecie']['error'] !== UPLOAD_ERR_OK) {
+                        switch ($_FILES['zdjecie']['error']) {
+                            case UPLOAD_ERR_INI_SIZE:
+                            case UPLOAD_ERR_FORM_SIZE:
+                                echo "Plik jest za duży!. <br> <a href='index.php'>Powrót do strony głównej</a>";
+                                exit;
+                            case UPLOAD_ERR_NO_FILE:
+                                echo "Plik nie został przesłany!. <br> <a href='index.php'>Powrót do strony głównej</a>";
+                                exit;
+                            default:
+                                echo "Wystąpił nieznany błąd. <br> <a href='index.php'>Powrót do strony głównej</a>";
+                                exit;
+                        }
+                    }
+            
+                    $zdjęcie = $_FILES['zdjecie']['tmp_name'];
+                    $nazwaPliku = basename($_FILES['zdjecie']['name']);
+                    $zdjęcieImg = file_get_contents($zdjęcie);
+            
+                    $uploadDir = 'uploads/';
+                    move_uploaded_file($zdjęcie, $uploadDir.$nazwaPliku.$increment);
+
+                    $_SESSION['zdjecie'.$increment] = $uploadDir.$nazwaPliku;
                     $_SESSION['pozycjaZnakownia'.$increment] = $pozycjaZnakowania;
                     $_SESSION['technologiaZnakowania'.$increment] = $technologiaZnakowania;
                     $_SESSION['iloscKolorow'.$increment] = $iloscKolorow;
                     $_SESSION['kolor'.$increment] = $kolor;
                     $_SESSION['wplyw'.$increment] = $wplyw;
                     $_SESSION['nr_oferty'] = $nr_oferty;
+
                 } catch (Throwable $e) {
                     echo "Błąd dodawania znakowania nr ".$increment.": ". $e->getMessage();
                 }

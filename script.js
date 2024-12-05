@@ -7,12 +7,6 @@ function base(){
     document.getElementById('przod').style.display = "none";
 }
 base();
-document.getElementById('zdjecie').addEventListener('change', function() {
-    let tablicaZdj = [];
-    const plik = document.getElementById('zdjecie').files;
-    tablicaZdj.push(plik[0])
-    wyswietlZdjecie(tablicaZdj);
-});
 function toggleOff($ktoryOff) {
     document.getElementById($ktoryOff).style.display = 'none';
 }
@@ -141,6 +135,10 @@ function dodajZnakowanie() {
         <div class=wplyw">
             <label for="wplyw">Wpływ na cenę(zł): </label>
             <input name="wplyw${optionCount}" id="wplyw${optionCount}" placeholder="0.00">
+        </div>
+        <div class="zdjecie">
+            <label for="zdjecie">Zdjęcie(maksymalnie 16MB!): </label>
+            <input type="file" name="zdjecie${optionCount}" id="zdjecie" accept="image/gif, image/jpeg, image/png" required>
         </div>
     `;
     sideForm.appendChild(nowy);

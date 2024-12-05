@@ -14,7 +14,7 @@ if(isset($_SESSION['nr_oferty'])) {
 
     while(true) {
         $increment++;
-        if(isset($_SESSION['pozycjaZnakownia'.$increment]) || isset($_SESSION['technologiaZnakowania'.$increment]) || isset($_SESSION['iloscKolorow'.$increment]) || isset($_SESSION['kolor'.$increment]) || isset($_SESSION['wplyw'.$increment])) {
+        if(isset($_SESSION['pozycjaZnakownia'.$increment]) || isset($_SESSION['technologiaZnakowania'.$increment]) || isset($_SESSION['iloscKolorow'.$increment]) || isset($_SESSION['kolor'.$increment]) || isset($_SESSION['wplyw'.$increment]) || isset($_SESSION['zdjecie'.$increment])) {
 
             $data[] = [
                 'pozycja' => $_SESSION['pozycjaZnakownia'.$increment],
@@ -23,7 +23,7 @@ if(isset($_SESSION['nr_oferty'])) {
                 'kolor' => $_SESSION['kolor'.$increment],
                 'wplyw' => $_SESSION['wplyw'.$increment],
                 'cena' => $cenaFetch['cena'] + $_SESSION['wplyw'.$increment],
-                'zdjecie' => $_SESSION['zdjecie'],
+                'zdjecie' => $_SESSION['zdjecie'.$increment],
                 'nr_oferty' => $_SESSION['nr_oferty']
             ];
             
@@ -67,9 +67,6 @@ if(isset($_SESSION['nr_oferty'])) {
     $newWidth = $width * $ratio;
     $newHeight = $height * $ratio;
 
-    $pdf->Cell(0, 62, "Zdjecie produktu: ", 0, 1);
-    $pdf->Image($imagePath, 60, 62, $newWidth, $newHeight); // Add image with new dimensions
-    
     $incrementCheck = 0;
     foreach ($data as $item) {
         $incrementCheck++;
@@ -82,6 +79,8 @@ if(isset($_SESSION['nr_oferty'])) {
         $pdf->Cell(0, 10, "Ilość kolorów: " . $item['ilosc'], 1, 1);
         $pdf->Cell(0, 10, "Kolor: " . $item['kolor'], 1, 1);
         $pdf->Cell(0, 10, "Cena: " . $item['cena'] . "zł", 1, 1);
+        $pdf->Cell(0, 62, "Zdjecie produktu: ", 0, 1);
+        $pdf->Image($imagePath, 60, 62, $newWidth, $newHeight); // Add image with new dimensions
         $pdf->Ln(5);
     }
     

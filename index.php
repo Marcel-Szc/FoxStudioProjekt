@@ -42,12 +42,12 @@ session_start();
                         <h2>Dane produktu: </h2>
                         <div class="nazwaContainer">
                             <label for="nazwaProd">Nazwa produktu: </label>
-                            <input list="nazwyProd" name="nazwaProd" id="nazwaProd" placeholder="nazwa produktu">
+                            <input list="nazwyProd" name="nazwaProd" id="nazwaProd" placeholder="nazwa produktu"required>
                             <datalist id="nazwyProd"></datalist>
                         </div>
                         <div class="kodProduktu">
                             <label for="kodProduktu">Kod produktu: </label>
-                            <input list="kodyProduktu" name="kodProduktu" id="kodProduktu"> 
+                            <input list="kodyProduktu" name="kodProduktu" id="kodProduktu" required> 
                             <datalist id="kodyProduktu"></datalist>
                         </div>
                         <div class="wybor">
@@ -72,11 +72,11 @@ session_start();
                         </div>
                         <div class="cena" id="cena" style="display: flex;">
                             <label for="cenaId">Cena(zł): </label>
-                            <input type="text" name="cena" id="cenaId" placeholder="0.00">
+                            <input type="text" name="cena" id="cenaId" placeholder="0.00" >
                         </div>
                         <div class="zdjecie">
                             <label for="zdjecie">Zdjęcie(maksymalnie 16MB!): </label>
-                            <input type="file" name="zdjecie" id="zdjecie" accept="image/gif, image/jpeg, image/png">
+                            <input type="file" name="zdjecie" id="zdjecie" accept="image/gif, image/jpeg, image/png" required>
                         </div>
                     </div>
                     <div class="sideForm">

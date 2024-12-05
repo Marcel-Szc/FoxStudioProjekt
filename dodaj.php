@@ -5,8 +5,6 @@ session_start();
 
         $nazwaProduktu = $_POST['nazwaProd'];
         $kodProduktu = $_POST['kodProduktu'];
-        $cenaOryginalna = $_POST['cenaOryginalna'] ?? null; 
-        $marza = $_POST['marza'] ?? null; 
 
         if ($_FILES['zdjecie']['error'] !== UPLOAD_ERR_OK) {
             switch ($_FILES['zdjecie']['error']) {
@@ -41,10 +39,15 @@ session_start();
 </head>
 <body>
     <?php 
-        if (isset($_POST['cenaId'])) {
-            $cena = $_POST['cenaId']; 
+        if (isset($_POST['cena'])) {
+            $cena = $_POST['cena']; 
+            $cenaOryginalna = NULL;
+            $marza = NULL;
         } else {
-            $cena = number_format((floatval($cenaOryginalna) + ((floatval($cenaOryginalna) * floatval($marza)) / 100)), 2);
+            $cenaOryginalna = $_POST['cenaOryginalna']; 
+            $marza = $_POST['marza'];
+
+            $cena = number_format(((floatval($cenaOryginalna) - (floatval($cenaOryginalna) * 0.57)) + ((floatval($cenaOryginalna) * floatval($marza)) / 100)), 2);
         }
         
         $technologiaZnakowania = empty($technologiaZnakowania) ? null : $technologiaZnakowania;

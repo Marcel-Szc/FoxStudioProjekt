@@ -22,6 +22,7 @@ function toggleOn($ktoryOn) {
 document.getElementById('cudzy').addEventListener('click', function() {
     if(document.getElementById('wlasny').checked) {
         document.getElementById('wlasny').checked = false;
+        document.getElementById('wlasny').setAttribute('required', false);
     }
     const $on = 'sprowadzony';
     const $off = 'cena';
@@ -31,6 +32,7 @@ document.getElementById('cudzy').addEventListener('click', function() {
 document.getElementById('wlasny').addEventListener('click', function() {
     if(document.getElementById('cudzy').checked) {
         document.getElementById('cudzy').checked = false;
+        document.getElementById('cudzy').setAttribute('required', false);
     }
     const $off = 'sprowadzony';
     const $on = 'cena';

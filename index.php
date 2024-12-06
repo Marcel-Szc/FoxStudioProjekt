@@ -19,7 +19,7 @@ session_start();
         <?php 
         if((!isset($_SESSION['zalogowany']))){
             echo '
-                <img src="panda.jpg" class="doGory" alt="logo pandagadzety" height="81px" width="200px">
+                <img src="panda.jpg" class="doGory" alt="logo pandagadzety" height="54px" width="133,333333px" style="margin-left: 20px; margin-bottom: 20px;">
                 <a class="button log" href="logowanie.html">Zaloguj się</a> 
             ';
         }
@@ -30,7 +30,14 @@ session_start();
                 <img src="panda.jpg" alt="logo pandagadzety" height="40.5px" width="100px">
                 <a class="button wylog" href="logout.php">Wyloguj się</a>
             </div>' ;
-        
+            $files = glob('uploads/*');  
+    
+            foreach($files as $file) { 
+            
+                if(is_file($file))  
+                
+                    unlink($file);  
+            }   
     ?></section>
     <section class="main">
         <section class="hero">

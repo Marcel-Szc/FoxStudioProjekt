@@ -1,9 +1,8 @@
 <?php 
-//
 include_once('polaczenie.php');
 session_start();
-    $nazwaProduktu = $_POST['nazwaProd'];
-    $kodProduktu = $_POST['kodProduktu'];
+$nazwaProduktu = $_POST['nazwaProd'];
+$kodProduktu = $_POST['kodProduktu'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +11,14 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        #pdf {
+            margin-left: 0px;
+            position: absolute;
+            top: 30rem;
+            left: 50rem;
+        }
+    </style>
 </head>
 <body>
     <?php 
@@ -26,17 +33,15 @@ session_start();
             $cena = number_format(((floatval($cenaOryginalna) - (floatval($cenaOryginalna) * 0.57)) + ((floatval($cenaOryginalna) * floatval($marza)) / 100)), 2);
         }
         
-        $technologiaZnakowania = empty($technologiaZnakowania) ? null : $technologiaZnakowania;
-        $iloscKolorow = empty($iloscKolorow) ? null : $iloscKolorow;
-        $kolor = empty($kolor) ? null : $kolor;
-        
         $kluczObcy = $polaczenie->query("SELECT `nr_oferty` FROM `produkty` ORDER BY nr_oferty DESC LIMIT 1;");
+        unset($_SESSION['nr_oferty']);
         $nr_oferty = intval($kluczObcy->fetch_row()[0]) + 1;
+        $_SESSION['nr_oferty'] = $nr_oferty;
         
         $idc = null;
         $idz = null;
         
-         try {
+        try {
             $insert = "INSERT INTO `produkty` (`nr_oferty`, `nazwa_produktu`, `kod_produktu`) VALUES (?, ?, ?);";
             $stmt = $polaczenie->prepare($insert);
             $stmt->bind_param("sss", $nr_oferty, $nazwaProduktu, $kodProduktu);
@@ -55,17 +60,18 @@ session_start();
         } catch (Throwable $e) {
             echo "Błąd dodawania ceny: " . $e->getMessage();
         }
-        $increment = 0;
-        while(true) {
-            $increment++;
-            if(isset($_POST['pozycjaZnakowania'.$increment]) || isset($_POST['technologiaZnakowania'.$increment]) || isset($_POST['iloscKolorow'.$increment]) || isset( $_POST['kolor'.$increment]) || isset($_POST['wplyw'.$increment])) {
+
+        $increment = 1;
+        while (true) {
+            if (isset($_POST['pozycjaZnakowania'.$increment]) || isset($_POST['technologiaZnakowania'.$increment]) || isset($_POST['iloscKolorow'.$increment]) || isset($_POST['kolor'.$increment]) || isset($_POST['wplyw'.$increment])) {
                 $pozycjaZnakowania = $_POST['pozycjaZnakowania'.$increment];
                 $technologiaZnakowania = $_POST['technologiaZnakowania'.$increment];
                 $iloscKolorow = $_POST['iloscKolorow'.$increment];
                 $kolor = $_POST['kolor'.$increment];
                 $wplyw = $_POST['wplyw'.$increment];
+
                 if ($_FILES['zdjecie'.$increment]['error'] !== UPLOAD_ERR_OK) {
-                    switch ($_FILES['zdjecie'.$increment]['error']) { // Ensure this line is correct
+                    switch ($_FILES['zdjecie'.$increment]['error']) {
                         case UPLOAD_ERR_INI_SIZE:
                         case UPLOAD_ERR_FORM_SIZE:
                             echo "Plik jest za duży!. <br> <a href='index.php'>Powrót do strony głównej</a>";
@@ -74,40 +80,59 @@ session_start();
                             echo "Plik nie został przesłany!. <br> <a href='index.php'>Powrót do strony głównej</a>";
                             exit;
                         default:
-                            echo "Wystąpił nieznany błąd. <br> <a href='index.php'>Powrót do strony głównej</a>";
+                            echo "Wystąpił nieznany błąd. <br> <a href=' index.php'>Powrót do strony głównej</a>";
                             exit;
                     }
                 }
-        
-                $zdjęcie = $_FILES['zdjecie'.$increment]['tmp_name'];
-                echo $zdjęcie;
-                $nazwaPliku = basename($_FILES['zdjecie'.$increment]['name']);
-                $zdjęcieImg = file_get_contents($zdjęcie);
-        
-                $uploadDir = 'uploads/';
-                move_uploaded_file($zdjęcie, $uploadDir.$nazwaPliku);
 
+                $zdjęcie = $_FILES['zdjecie'.$increment]['tmp_name'];
+                $imageType = exif_imagetype($zdjęcie); // Get the image type
+
+                // Create a new image resource
+                switch ($imageType) {
+                    case IMAGETYPE_JPEG:
+                        $sourceImage = imagecreatefromjpeg($zdjęcie);
+                        break;
+                    case IMAGETYPE_PNG:
+                        $sourceImage = @imagecreatefrompng($zdjęcie);
+                        break;
+                    case IMAGETYPE_GIF:
+                        $sourceImage = imagecreatefromgif($zdjęcie);
+                        break;
+                    default:
+                        die("Unsupported image type.");
+                }
+
+                // Create a new true color image in JPEG format
+                $jpegImagePath = 'uploads/'.$increment.'temp_image_' . uniqid() . '.jpg';
+                imagejpeg($sourceImage, $jpegImagePath, 100); // Save as JPEG with quality 100
+
+                $_SESSION['imagePath'.$increment] = $jpegImagePath;
+
+                // Read the JPEG file contents
+                $zdjęcieImg = file_get_contents($jpegImagePath);
+
+                // Now you can store $zdjęcieImg in the database
                 try {
                     $insertZnak = "INSERT INTO `znakowanie` (`idz`, `pozycja_znakowania`, `technologia_znakowania`, `ilosc_kolorow`, `kolor`, `wplyw_na_cene`, `zdjecie_produktu`, `nr_oferty`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
                     $stmtZnak = $polaczenie->prepare($insertZnak);
                     $stmtZnak->bind_param("ssssssss", $idz, $pozycjaZnakowania, $technologiaZnakowania, $iloscKolorow, $kolor, $wplyw, $zdjęcieImg, $nr_oferty);
-                    $stmt->send_long_data(0, $zdjęcieImg);
+                    $stmtZnak->send_long_data(0, $zdjęcieImg);
                     $stmtZnak->execute();
                     echo "Znakowanie zostało dodane pomyślnie!<br>";
-
                 } catch (Throwable $e) {
                     echo "Błąd dodawania znakowania nr ".$increment.": ". $e->getMessage();
                 }
+                $increment++;
             } else {
                 break;
             }
         } 
         $increment = 0;
     ?>
-
     <div class="main">
         <h1 style=" margin: auto;">Dane zostały dodane do Bazy Danych, utwórz plik pdf:</h1>
-        <button class="przycisk" id="pdf">Utwóz plik pdf</button>
+        <button class="przycisk" id="pdf">Utwórz plik pdf</button>
     </div>
 <script> 
     document.getElementById("pdf").addEventListener("click", function(){ 

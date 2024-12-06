@@ -99,13 +99,15 @@ function dodajZnakowanie() {
     if (optionCount >= 1) {
         document.getElementById('wroc').style.display = "block";
     }
-    const sideForm = document.getElementsByClassName('sideForm')[0];
-    if (optionCount != 0) {
-        let sideFormWrapper = "sideFormWrapper" + optionCount;
-        document.getElementById(sideFormWrapper).style.display = "none";
+    
+    // Hide the currently displayed option
+    if (opcjaPowrotu > 0) {
+        let currentWrapper = "sideFormWrapper" + opcjaPowrotu;
+        document.getElementById(currentWrapper).style.display = "none";
     }
     
-    document.getElementById('przod').style.display = "none";
+    const sideForm = document.getElementsByClassName('sideForm')[0];
+    
     optionCount++;
         
     const nowy = document.createElement('div');
@@ -132,21 +134,22 @@ function dodajZnakowanie() {
             <input list="kolory${optionCount}" name="kolor${optionCount}" id="kolor${optionCount}">
             <datalist id="kolory${optionCount}"></datalist>
         </div>
-        <div class=wplyw">
+        <div class="wplyw">
             <label for="wplyw">Wpływ na cenę(zł): </label>
             <input name="wplyw${optionCount}" id="wplyw${optionCount}" placeholder="0.00">
         </div>
         <div class="zdjecie">
             <label for="zdjecie">Zdjęcie(maksymalnie 16MB!): </label>
-            <input type="file" name="zdjecie${optionCount}" id="zdjecie${optionCount}" accept="image/gif, image/jpeg, image/png" required>
+            <input type="file" name="zdjecie${optionCount}" id="zdjecie${optionCount}" style="border-width: 0px;" accept="image/gif, image/jpeg, image/png" required>
         </div>
     `;
     sideForm.appendChild(nowy);
-    if(optionCount != 0) {
-        getTechnologie(optionCount);
-        getPozycjeZnakowania(optionCount);
-        getKolory(optionCount);
-    }
+    
+    // Load technologies, positions, and colors for the new option
+    getTechnologie(optionCount);
+    getPozycjeZnakowania(optionCount);
+    getKolory(optionCount);
+    
     opcjaPowrotu = optionCount;
 }
 document.getElementById('dodajZnak').addEventListener('click', function(){
@@ -156,6 +159,7 @@ document.getElementById('wroc').addEventListener('click', function() {
     let sideFormWrapper = "sideFormWrapper" + opcjaPowrotu;
     document.getElementById(sideFormWrapper).style.display = "none";
     opcjaPowrotu--;
+    console.log(opcjaPowrotu);
     document.getElementById('przod').style.display = "block";
     let sideFormUnwrapper = "sideFormWrapper" + opcjaPowrotu;
     document.getElementById(sideFormUnwrapper).style.display = "block";

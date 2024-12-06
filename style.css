@@ -19,6 +19,7 @@ body {
 }
 .header {
     height: 8%;
+    box-shadow: 0px 0.5px 19px -5px rgba(66, 68, 90, 1);
 }
 .header * {
     font-size: 20px; 
@@ -46,6 +47,7 @@ body {
     padding: 10px;
     border-radius: 25px; 
     font-size: 18px;
+    box-shadow: 8px 8px 15px -5px rgba(66, 68, 90, 1);
 }
 .button:hover {
     background-color: #15475e;
@@ -53,6 +55,12 @@ body {
 }
 .button:active{
     background-color: #26789e;
+    box-shadow: 8px 8px 15px -5px rgba(66, 68, 90, 1);
+}
+input {
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
 }
 .log:active {
     margin-left:12px;
@@ -175,6 +183,7 @@ label {
     height: 55px;
     width: 280px;
     margin-left: 80px;
+    box-shadow: 5px 5px 15px -5px rgba(66, 68, 90, 1);
 }
 #dodajProdukt {
     margin-left:-930px;
@@ -205,6 +214,7 @@ label {
 }
 .przycisk:active{
     background-color: #67cdf5;
+    box-shadow: 8px 8px 15px -5px rgba(66, 68, 90, 1);
 }
 .logowanie {
     display: flex;

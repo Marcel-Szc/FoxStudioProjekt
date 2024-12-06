@@ -3,66 +3,61 @@ require('fpdf/tfpdf.php');
 include_once('polaczenie.php');
 session_start();
 
-$increment = 0;
+$increment = 1;
 $data = []; // Array to hold session data
-if(isset($_SESSION['nr_oferty'])) {
+
+if (isset($_SESSION['nr_oferty'])) {
     $nr_oferty = $_SESSION['nr_oferty'];
-    $cenaBaza = $polaczenie->prepare("SELECT cena, marza FROM ceny WHERE nr_oferty =".$nr_oferty.";");
+    // Fetching price and margin
+    $cenaBaza = $polaczenie->prepare("SELECT cena, marza FROM ceny WHERE nr_oferty = ?");
+    if (!$cenaBaza) {
+        die("Database query failed: " . $polaczenie->error);
+    }
+    $cenaBaza->bind_param("i", $nr_oferty);
     $cenaBaza->execute();
     $wynikCena = $cenaBaza->get_result();
     $cenaFetch = $wynikCena->fetch_assoc();
 
-    $znakowanie = $polacznie->prepare("SELECT pozycja_znakowania as pozycja, technologia_znakowania as technologia, ilosc_kolorow, kolor, wplyw_na_cene FROM ZNAKOWANIE WHERE nr_oferty =".$nr_oferty.";");
+    // Fetching data from the znakowanie table
+    $znakowanie = $polaczenie->prepare("SELECT pozycja_znakowania, technologia_znakowania, ilosc_kolorow, kolor, wplyw_na_cene FROM ZNAKOWANIE WHERE nr_oferty = ?");
+    if (!$znakowanie) {
+        die("Database query failed: " . $polaczenie->error);
+    }
+    $znakowanie->bind_param("i", $nr_oferty);
     $znakowanie->execute();
     $wynikZnakowanie = $znakowanie->get_result();
-    $data = array();
 
-    foreach($wynikZnakowanie as $znak) {
+    // Fetching data into the array
+    while ($znak = $wynikZnakowanie->fetch_assoc()) {
         $data[] = [
-            'pozycja' => $znak['pozycja'],
-            'technologia' => $znak['technologia'],
+            'pozycja' => $znak['pozycja_znakowania'],
+            'technologia' => $znak['technologia_znakowania'],
             'ilosc' => $znak['ilosc_kolorow'],
             'kolor' => $znak['kolor'],
-            'wplyw' => $znak['wplyw_na_cene'],
             'cena' => intval($cenaFetch['cena']) + intval($znak['wplyw_na_cene']),
-            'nr_oferty' => $znak['nr_oferty']
+            'nr_oferty' => $nr_oferty
         ];
     }
-    $directory = "./uploads";
-    $images = glob("$dir/*.{jpg,png,bmp}", GLOB_BRACE);
 
-    foreach($images as $image)
-    {
-        $data[] = [
-            'zdjecie' => $image
-        ];
+    // Fetching product details
+    $produkt = $polaczenie->prepare("SELECT nazwa_produktu, kod_produktu FROM produkty WHERE nr_oferty = ?");
+    if (!$produkt) {
+        die("Database query failed: " . $polaczenie->error);
     }
-    while(true) {
-        $increment++;
-        if(isset($_SESSION['pozycjaZnakownia'.$increment]) || isset($_SESSION['technologiaZnakowania'.$increment]) || isset($_SESSION['iloscKolorow'.$increment]) || isset($_SESSION['kolor'.$increment]) || isset($_SESSION['wplyw'.$increment]) || isset($_SESSION['zdjecie'.$increment])) {
-            $data[] = [
-                'pozycja' => $_SESSION['pozycjaZnakownia'.$increment],
-                'technologia' => $_SESSION['technologiaZnakowania'.$increment],
-                'ilosc' => $_SESSION['iloscKolorow'.$increment],
-                'kolor' => $_SESSION['kolor'.$increment],
-                'wplyw' => $_SESSION['wplyw'.$increment],
-                'cena' => intval($cenaFetch['cena']) + intval($_SESSION['wplyw'.$increment]),
-                'zdjecie' => $_SESSION['zdjecie'.$increment],
-                'nr_oferty' => $_SESSION['nr_oferty']
-            ];
-        } else {
-            break;
-        }
-    };
-
-
-    $produkt = $polaczenie->prepare("SELECT nazwa_produktu, kod_produktu FROM produkty WHERE nr_oferty =".$nr_oferty.";");
+    $produkt->bind_param("i", $nr_oferty);
     $produkt->execute();
     $wynik = $produkt->get_result();
     $produkty = $wynik->fetch_assoc();
     
+    // Creating PDF
     $pdf = new tFPDF();
     $pdf->AddPage();
+    $directory = 'uploads/';
+    $imagePath = $directory . $increment . 'temp_image_*.jpg'; // Pattern to match images
+        $files = glob($imagePath); // Get all matching files
+        foreach ($files as $file) { 
+           $pdf->Image($file, 0, $pdf->GetY(), 210, 297, 'jpg');
+        }
     $pdf->AddFont('DejaVu','','DejaVuSansCondensed-Bold.ttf',true);
     $pdf->SetFont('Arial','B',20);
     $pdf->Cell(60, 20, "Dane produktu: ");
@@ -74,51 +69,21 @@ if(isset($_SESSION['nr_oferty'])) {
         $marza = "Marza: ".$cenaFetch['marza'];
         $pdf->Cell(0, 10, "Marza produktu: ".$marza."%", 1, 1);
     }
-   
+    $pdf->Ln(10);
+    // Displaying data in the PDF
     foreach ($data as $item) {
-        if($increment % 2 == 0){
+        if ($increment % 5 == 0) {
             $pdf->AddPage(); 
         }
-        // Image handling
-        $imagePath = $data[0]['zdjecie']; // Assuming the image is the same for all items
-        list($width, $height) = getimagesize($imagePath);
-        $maxWidth = 66.66666666667; // Set your desired max width
-        $maxHeight = 40; // Set your desired max height
-
-        // Calculate the scaling factor based on the height
-        if ($height > $maxHeight) {
-            $ratio = $maxHeight / $height; // Scale down more if height is greater than maxHeight
-        } else {
-            $ratio = min($maxWidth / $width, $maxHeight / $height); // Normal scaling
-        }
-
-        $newWidth = $width * $ratio;
-        $newHeight = $height * $ratio;
-        
-        $pdf->Cell(0, 10, "Pozycja: " . $item['pozycja'], 1, 1);
-        $pdf->Cell(0, 10, "Technologia: " . $item['technologia'], 1, 1);
-        $pdf->Cell(0, 10, "Ilość kolorów: " . $item['ilosc'], 1, 1);
-        $pdf->Cell(0, 10, "Kolor: " . $item['kolor'], 1, 1);
-        $pdf->Cell(0, 10, "Cena: " . $item['cena'] . "zł", 1, 1);
-        $pdf->Cell(0, 62, "Zdjecie produktu: ", 0, 1);
-        $pdf->Image($imagePath, 60, 62, $newWidth, $newHeight); // Add image with new dimensions
+        $pdf->Cell(0, 10, "Pozycja: " . (isset($item['pozycja']) ? $item['pozycja'] : 'N/A'), 1, 1);
+        $pdf->Cell(0, 10, "Technologia: " . (isset($item['technologia']) ? $item['technologia'] : 'N/A'), 1, 1);
+        $pdf->Cell(0, 10, "Ilość kolorów: " . (isset($item['ilosc']) ? $item['ilosc'] : 'N/A'), 1, 1);
+        $pdf->Cell(0, 10, "Kolor: " . (isset($item['kolor']) ? $item['kolor'] : 'N/A'), 1, 1);
+        $pdf->Cell(0, 10, "Cena: " . (isset($item['cena']) ? $item['cena'] : 'N/A') . "zł", 1, 1);
+        //$pdf->Image($item['filename'], 10, $pdf->GetY(), 50, 50, 'jpg');
         $pdf->Ln(5);
     }
-    
     $pdf->Output();
-    $folder_path = "myGeeks"; 
-   
-// List of name of files inside 
-// specified folder 
-$files = glob($folder_path.'/*');  
-   
-// Deleting all the files in the list 
-foreach($files as $file) { 
-   
-    if(is_file($file))  
-    
-        // Delete the given file 
-        unlink($file);  
-} 
+    $increment++;
 }
 ?>

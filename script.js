@@ -153,6 +153,7 @@ function dodajZnakowanie() {
     opcjaPowrotu = optionCount;
 }
 document.getElementById('dodajZnak').addEventListener('click', function(){
+    document.getElementById('przod').style.display = "none";
     dodajZnakowanie();
 });
 document.getElementById('wroc').addEventListener('click', function() { 

@@ -19,7 +19,7 @@ session_start();
         <?php 
         if((!isset($_SESSION['zalogowany']))){
             echo '
-                <img src="panda.jpg" class="doGory" alt="logo pandagadzety" height="54px" width="133,333333px" style="margin-left: 20px; margin-bottom: 20px;">
+                <img src="panda.jpg" class="doGory" alt="logo pandagadzety" height="54px" width="133,333333px" style="margin-left: 20px; margin-bottom: 65px;">
                 <a class="button log" href="logowanie.html">Zaloguj się</a> 
             ';
         }

@@ -62,9 +62,6 @@ input {
     border-style: solid;
     border-width: 1px;
 }
-.log:active {
-    margin-left:12px;
-}
 .wylog {
     margin-left: 750px;
 }

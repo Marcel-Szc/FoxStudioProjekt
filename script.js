@@ -179,3 +179,85 @@ document.getElementById('przod').addEventListener('click', function() {
         document.getElementById('przod').style.display = "none";
     }
 });
+document.getElementById('dodajProdukt').addEventListener('click', function() {
+    // Get values from the input fields
+    const nazwaProd = document.getElementById('nazwaProd').value.trim();
+    const kodProduktu = document.getElementById('kodProduktu').value.trim();
+    const cenaId = parseFloat(document.getElementById('cenaId').value);
+    const cenaOryginalna = parseFloat(document.getElementById('cenaOryginalna').value);
+    const marza = parseFloat(document.getElementById('marza').value);
+
+    let totalIloscKolorow = 0;
+    let totalWplywNaCene = 0;
+
+    if (nazwaProd === '') {
+        alert('Nazwa produktu nie może być pusta.');
+        return;
+    } 
+    if (kodProduktu === '') {
+        alert('Kod produktu nie może być pusty.');
+        return;
+    }
+
+    const isWlasnyChecked = document.getElementById('wlasny').checked;
+    const isCudzyChecked = document.getElementById('cudzy').checked;
+
+    if (isWlasnyChecked) {
+        if (isNaN(cenaId)) {
+            alert('Cena musi być liczbą');
+            return;
+        }
+    } else if (isCudzyChecked) {
+        if (isNaN(cenaOryginalna)) {
+            alert('Cena oryginalnabyć liczbą');
+            return;
+        }
+        if(isNaN(marza)) {
+            alert('Marza musi być liczbą');
+            return;
+        }
+    } else {
+        alert('Please select a product type (własny or cudzy).');
+        return;
+    }
+
+    for (let i = 1; i <= optionCount; i++) {
+        const sideFormWrapper = document.querySelectorAll(`#sideFormWrapper${i} input`);
+        for (let j = 0; j < sideFormWrapper.length; j++) {
+            if (sideFormWrapper[j].value.trim() === '') {
+                alert('All fields in the side form must be filled out.');
+                return;
+            }
+        }
+
+        const iloscKolorow = parseInt(document.getElementById(`iloscKolorow${i}`).value);
+        const wplywNaCene = parseFloat(document.getElementById(`wplyw${i}`).value);
+
+        if (isNaN(iloscKolorow) || isNaN(wplywNaCene)) {
+            alert('Ilość kolorów and Wpływ na cenę must be numbers.');
+            return;
+        }
+
+        totalIloscKolorow += iloscKolorow;
+        totalWplywNaCene += wplywNaCene;
+    }
+
+    let podsumowanie = '';
+    if (isCudzyChecked) {
+        const calculatedPrice = (cenaOryginalna * 0.57) + (cenaOryginalna * (marza / 100));
+        podsumowanie = `<li>Nazwa produktu: ${nazwaProd}</li><li> Kod produktu: ${kodProduktu}</li><li> Cena oryginalna: ${cenaOryginalna}</li><li> Marza: ${marza}%</li><li> Cena: ${calculatedPrice.toFixed(2)} zł</li><li> Ilość kolorów: ${totalIloscKolorow}</li><li> Wpływ na cenę: ${totalWplywNaCene}</li>`;
+    } else if (isWlasnyChecked) {
+        podsumowanie = `<li>Nazwa produktu: ${nazwaProd}</li><li> Kod produktu: ${kodProduktu}</li><li> Cena: ${cenaId} zł</li><li> Ilość kolorów: ${totalIloscKolorow}</li><li> Wpływ na cenę: ${totalWplywNaCene}</li>`;
+    }
+
+    // Display the results
+    document.getElementById('dodajProduktBG').style.display = 'block';
+    document.getElementById('dodajProduktWrapper').style.display = 'flex';
+    document.getElementById('powrot').style.display = 'block';
+    document.getElementById('podsumowanie').innerHTML = podsumowanie;
+});
+document.getElementById('powrot').addEventListener('click', function() {
+    document.getElementById('dodajProduktBG').style.display = 'none';
+    document.getElementById('dodajProduktWrapper').style.display = 'none';
+    document.getElementById('powrot').style.display = 'none';
+});

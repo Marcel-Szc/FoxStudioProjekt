@@ -26,9 +26,11 @@ session_start();
         else {
             echo '
             <div class="headerWrapper">
-                <div class="imie"> Witaj '.$_SESSION['imie'].'!</div> 
-                <img src="panda.jpg" alt="logo pandagadzety" height="40.5px" width="100px">
-                <a class="button wylog" href="logout.php">Wyloguj się</a>
+                <span>
+                    <div class="imie"> Witaj '.$_SESSION['imie'].'!</div> 
+                    <img src="panda.jpg" alt="logo pandagadzety" height="40.5px" width="100px">
+                    <a class="button wylog" href="logout.php">Wyloguj się</a>
+                </span>
             </div>' ;
             $files = glob('uploads/*');  
     
@@ -54,7 +56,7 @@ session_start();
                         </div>
                         <div class="kodProduktu">
                             <label for="kodProduktu">Kod produktu: </label>
-                            <input list="kodyProduktu" name="kodProduktu" id="kodProduktu" required> 
+                            <input placeholder="kod produktu" list="kodyProduktu" name="kodProduktu" id="kodProduktu" required> 
                             <datalist id="kodyProduktu"></datalist>
                         </div>
                         <div class="wybor">
@@ -83,11 +85,18 @@ session_start();
                         </div>
                     </div>
                     <div class="sideForm">
-                        </div>
+                        
                     </div>
-                        <input type="submit" value="Dodaj produkt" id="dodajProdukt" class="przycisk">
+                    <div id="dodajProduktBG">
+                    </div>
+                    <div id="dodajProduktWrapper">
+                        <p>Dane są poprawne, kliknij "Potwierdz dodanie produktu"</p>
+                        <ul id="podsumowanie"> </ul>
+                        <input type="submit" value="Potwierdz dodanie produktu" id="potwierdzProdukt" class="przycisk">
                     </div>
                 </form>
+                <button id="powrot" class="przycisk">Powrot</button>
+                <button id="dodajProdukt" class="przycisk">Dodaj produkt</button>
                 <button id="dodajZnak" class="przycisk">Dodaj opcje znakowania</button>
                 <button id="wroc" class="przycisk"><-</button>
                 <button id="przod" class="przycisk">-></button>

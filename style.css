@@ -2,11 +2,15 @@
     box-sizing: border-box;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+html {
+    width: 100vw;
+    height: 100vh;
+}
 body {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    width:100vw;
+    height: 100%;
+    width:100%;
     margin: 0;
     padding: 0;
     background-color: #f5f5f5;
@@ -19,23 +23,30 @@ body {
 }
 .header {
     height: 8%;
-    box-shadow: 0px 0.5px 19px -5px rgba(66, 68, 90, 1);
+    box-shadow: 0px 0.2px 19px -5px rgba(66, 68, 90, 1);
 }
 .header * {
     font-size: 20px; 
 }
 .headerWrapper {
+    position: absolute;
+    z-index: 10;
+}
+.headerWrapper span{
+    background-color: #f5f5f5;
+    padding: 17px 63.2px 17px 63.2px;
     display: flex;
-    margin-top: 20px;
     justify-content: center;
 }
 .doGory {
     position: absolute;
+    z-index: 2;
     bottom: 52rem;
     left: 53rem;
 }
 .log {
     position: absolute;
+    z-index: 2;
     bottom: 20rem;
     left: 56rem;
 }
@@ -45,9 +56,9 @@ body {
     background-color:#1a6283; 
     border: 0px;
     padding: 10px;
-    border-radius: 25px; 
+    border-radius: 5px; 
     font-size: 18px;
-    box-shadow: 8px 8px 15px -5px rgba(66, 68, 90, 1);
+    box-shadow: 5px 5px 15px -5px rgba(66, 68, 90, 1);
 }
 .button:hover {
     background-color: #15475e;
@@ -72,11 +83,12 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;
+    width: 100%;
     height:90%;
 }
 .heroWrapper {
     width: 100%;
+    height: 100%;
     margin-left: -650px;
 }
 h1 {
@@ -88,13 +100,14 @@ h1 {
 form {
     width: 100%;
     margin: 20px;
+    margin-left: 50px;
     display: flex;
     align-items: center;
 }
 .mainForm {
     width: 50%;
     margin-top: 40px;
-    margin-left: 200px;
+    margin-left: 520px;
     margin-bottom: 110px;
 }
 .sideForm {
@@ -118,6 +131,9 @@ form {
     flex-direction:column;
     width: 200px;
     margin-left: 100px;
+}
+.zdjecie {
+    margin-left: 120px;
 }
 .wybor {
     display: flex;
@@ -167,7 +183,6 @@ input {
 }
 .zdjecie #zdjecie{
     width: 370px;
-
 }
 label {
     width: 400px;
@@ -176,19 +191,50 @@ label {
 .przycisk {
     background-color:#2cb3e9;
     border: 0px;
-    border-radius: 25px;
+    border-radius: 5px;
     height: 55px;
     width: 280px;
-    margin-left: 80px;
+    margin-left: 110px;
     box-shadow: 5px 5px 15px -5px rgba(66, 68, 90, 1);
 }
+#dodajProduktBG {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    background-color: black;
+    opacity: 0.3;
+    left: 0rem;
+    width: 100vw;
+    height: 104vh;
+}
+#dodajProduktWrapper {
+    display: none;
+    position: absolute;
+    background-color: whitesmoke;
+    flex-direction: column;
+    border-radius: 5px;
+    height: 40vh;
+    width: 40vw;
+    left: 35rem;
+    z-index: 7;
+    opacity: 1;
+}
+#dodajProduktWrapper p {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 30px;
+}
+#potwierdzProdukt {
+    font-size: 18px;
+    margin-top: 30px;
+    margin-left: 230px;
+}
 #dodajProdukt {
-    margin-left:-930px;
-    margin-top: 600px;
+    margin-left: 69rem;
     font-size: 18px;
 }
 #dodajZnak {
-    border-radius: 15px;
+    border-radius: 5px;
     height: 37px;
     width: 240px;
     position: absolute;
@@ -196,15 +242,16 @@ label {
     left: 21rem;
 }
 #wroc, #przod{
-    border-radius: 15px;
+    border-radius: 5px;
     height: 37px;
     width: 60px;
     position: absolute;
-    bottom: 10rem;
-    left: 72rem;
+    z-index: 2;
+    bottom: 15rem;
+    left: 67rem;
 }
 #przod {
-    left: 76rem;
+    left: 71rem;
 }
 .przycisk:hover{
     background-color: #2ea2cf;
@@ -226,4 +273,19 @@ label {
 .logowanieTytul{
     font-size: 28px;
     font-weight: 800;
+}
+#podsumowanie {
+    width: 60%;
+    height: 200px;
+    margin: auto;
+    list-style: none;
+}
+#powrot {
+    display: none;
+    position: absolute;
+    left: 32rem;
+    bottom: 20rem;
+    z-index: 15;
+    width: 80px;
+    height: 30px;
 }

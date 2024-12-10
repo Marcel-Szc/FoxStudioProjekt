@@ -14,6 +14,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f5f5f5;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 .main {
     display: flex;
@@ -38,6 +40,9 @@ body {
     display: flex;
     justify-content: center;
 }
+.headerWrapper span img {
+    margin-left: 800px;
+}
 .doGory {
     position: absolute;
     z-index: 2;
@@ -50,34 +55,10 @@ body {
     bottom: 20rem;
     left: 56rem;
 }
-.button {
-    text-decoration: none;
-    color: black;
-    background-color:#1a6283; 
-    border: 0px;
-    padding: 10px;
-    border-radius: 5px; 
-    font-size: 18px;
-    box-shadow: 5px 5px 15px -5px rgba(66, 68, 90, 1);
-}
-.button:hover {
-    background-color: #15475e;
-    color: whitesmoke;
-}
-.button:active{
-    background-color: #26789e;
-    box-shadow: 8px 8px 15px -5px rgba(66, 68, 90, 1);
-}
 input {
     border-radius: 5px;
     border-style: solid;
     border-width: 1px;
-}
-.wylog {
-    margin-left: 750px;
-}
-.imie {
-    margin-right: 750px;
 }
 .hero {
     display: flex;
@@ -94,8 +75,8 @@ input {
 h1 {
     text-align: center;
     font-size: 24px;
-    padding-bottom: 40px;
-    margin-left: 140px;
+    padding-bottom: 10px;
+    margin-left: 540px;
 }
 form {
     width: 100%;
@@ -198,7 +179,6 @@ label {
     box-shadow: 5px 5px 15px -5px rgba(66, 68, 90, 1);
 }
 #dodajProduktBG {
-    display: none;
     position: absolute;
     z-index: 5;
     background-color: black;
@@ -208,7 +188,6 @@ label {
     height: 104vh;
 }
 #dodajProduktWrapper {
-    display: none;
     position: absolute;
     background-color: whitesmoke;
     flex-direction: column;
@@ -260,20 +239,6 @@ label {
     background-color: #67cdf5;
     box-shadow: 8px 8px 15px -5px rgba(66, 68, 90, 1);
 }
-.logowanie {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.przyciskLogowania {
-    margin-left: 50px;
-    margin-top: 20px;
-}
-.logowanieTytul{
-    font-size: 28px;
-    font-weight: 800;
-}
 #podsumowanie {
     width: 60%;
     height: 200px;
@@ -281,7 +246,6 @@ label {
     list-style: none;
 }
 #powrot {
-    display: none;
     position: absolute;
     left: 32rem;
     bottom: 20rem;

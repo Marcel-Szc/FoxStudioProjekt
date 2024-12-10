@@ -11,14 +11,6 @@ $kodProduktu = $_POST['kodProduktu'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        #pdf {
-            margin-left: 0px;
-            position: absolute;
-            top: 30rem;
-            left: 50rem;
-        }
-    </style>
 </head>
 <body>
     <?php 

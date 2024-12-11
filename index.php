@@ -94,7 +94,7 @@ session_start();
         </section>
         </section>
         <script>
-            let optionCount =  0;  
+            let optionCount = 0;  
             let opcjaPowrotu = 0;  
 
             // Funkcja inicjalizująca stronę, ustawia domyślne wartości i ukrywa niepotrzebne elementy

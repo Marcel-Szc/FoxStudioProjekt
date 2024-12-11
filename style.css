@@ -264,8 +264,9 @@ label {
 }
 #usunZnak {
     position: absolute;
-    Left: 71rem ;
+    Left: 73rem ;
     bottom: 12rem;
+    width: 200px;
 }
 @media screen and (max-width: 600px) {
     form{

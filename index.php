@@ -246,7 +246,6 @@ session_start();
                     </div>
                     <div id="technologiaContainer">
                         <label for="technologiaZnakowania">Technologia znakowania: </label>
-                        <input list="technologieZnakowania${optionCount}" name="technologiaZnak
                         <input list="technologieZnakowania${optionCount}" name="technologiaZnakowania${optionCount}" id="technologiaZnakowania${optionCount}"  placeholder="technologia znakowania">
                         <datalist id="technologieZnakowania${optionCount}"></datalist>
                     </div>       
@@ -316,14 +315,14 @@ session_start();
                 optionCount--; // Zmniejsza licznik opcji
                 if (opcjaPowrotu === optionCount) {
                     document.getElementById('przod').style.display = "none"; // Ukrywa przycisk przodu, jeśli to ostatnia opcja
-                }
-                if(opcjaPowrotu == optionCount - 1) {
+                } else if (opcjaPowrotu == optionCount){
                     document.getElementById("sideFormWrapper" + optionCount).style.display = "flex"; // Pokazuje poprzedni wrapper
-                }
-                if (optionCount == 1) {
+                } else if (optionCount == 1) {
                     document.getElementById('usunZnak').style.display = "none"; // Ukrywa przycisk usuwania, jeśli to jedyna opcja
                     document.getElementById('wroc').style.display = "none"; // Ukrywa przycisk powrotu, jeśli to jedyna opcja
                     document.getElementById('przod').style.display = "none"; // Ukrywa przycisk przodu, jeśli to jedyna opcja
+                } else {
+                    document.getElementById("sideFormWrapper" + optionCount).style.display = "flex"; // Pokazuje poprzedni wrapper
                 }
             });  
 

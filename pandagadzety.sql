@@ -26,6 +26,8 @@ SET time_zone = "+00:00";
 --
 -- Struktura tabeli dla tabeli `ceny`
 --
+CREATE DATABASE `pandagadzety`;
+USE `pandagadzety`;
 
 CREATE TABLE `ceny` (
   `idc` int(11) NOT NULL,

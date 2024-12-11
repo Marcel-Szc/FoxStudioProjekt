@@ -53,12 +53,10 @@ if (isset($_SESSION['nr_oferty'])) {
     $pdf = new tFPDF();
     $pdf->AddPage();
     $pdf->AddFont('DejaVu','','DejaVuSansCondensed-Bold.ttf',true);
-    $pdf->SetFont('Arial','B',20);
-    $pdf->Cell(60, 20, "Dane produktu: ");
-    $pdf->Ln(20);
-    $pdf->SetFont('DejaVu','',12);
-    $pdf->Cell(0, 10, "Nazwa produktu: ".$produkty['nazwa_produktu'], 1, 1);
-    $pdf->Cell(0, 10, "Kod produktu: ".$produkty['kod_produktu'], 1, 1);
+    $pdf->SetFont('DejaVu','',11);
+    $pdf->Cell(0, 10, "Nazwa produktu: ".$produkty['nazwa_produktu'], 0, 1);
+    $pdf->Cell(0, 10, "Kod produktu: ".$produkty['kod_produktu'], 0, 1);
+    $pdf->SetFont('DejaVu','',9);
     if ($cenaFetch['marza'] != NULL) {
         $marza = "Marza: ".$cenaFetch['marza'];
         $pdf->Cell(0, 10, "Marza produktu: ".$marza."%", 1, 1);
@@ -82,7 +80,7 @@ if (isset($_SESSION['nr_oferty'])) {
                 list($originalWidth, $originalHeight) = getimagesize($imagePath);
                 
                 // Set the desired width for the image
-                $desiredWidth = 50; // Change this value as needed
+                $desiredWidth = 37; // Change this value as needed
                 $aspectRatio = $originalHeight / $originalWidth;
                 
                 // Calculate the new height to maintain aspect ratio

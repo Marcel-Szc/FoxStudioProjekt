@@ -320,6 +320,7 @@ session_start();
                 } else if (optionCount == 1) {
                     document.getElementById('usunZnak').style.display = "none"; // Ukrywa przycisk usuwania, jeśli to jedyna opcja
                     document.getElementById('wroc').style.display = "none"; // Ukrywa przycisk powrotu, jeśli to jedyna opcja
+                    document.getElementById("sideFormWrapper" + optionCount).style.display = "flex";
                     document.getElementById('przod').style.display = "none"; // Ukrywa przycisk przodu, jeśli to jedyna opcja
                 } else {
                     document.getElementById("sideFormWrapper" + optionCount).style.display = "flex"; // Pokazuje poprzedni wrapper

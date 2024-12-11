@@ -263,7 +263,7 @@ session_start();
                         <input name="wplyw${optionCount}" id="wplyw${optionCount}" placeholder="0.00">
                     </div>
                     <div class="zdjecie">
-                        <label for="zdjecie">Zdjęcie(maksymalnie 16MB!): </label>
+                        <label for="zdjecie">Zdjęcie(maksymalnie 512MB!): </label>
                         <input type="file" name="zdjecie${optionCount}" id="zdjecie${optionCount}" style="border-width: 0px;" accept="image/gif, image/jpeg, image/png" required>
                     </div>`; // Ustawia HTML dla nowego div
                 sideForm.appendChild(nowy); // Dodaje nowy div do sideForm

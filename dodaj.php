@@ -50,7 +50,6 @@ $kodProduktu = $_POST['kodProduktu'];
             $stmt = $polaczenie->prepare($insert); // Przygotowanie zapytania
             $stmt->bind_param("sss", $nr_oferty, $nazwaProduktu, $kodProduktu); // Powiązanie parametrów
             $stmt->execute(); // Wykonanie zapytania
-            echo "Produkt został dodany pomyślnie!<br>"; // Informacja o sukcesie
         } catch (Throwable $th) {
             echo "Błąd dodawania produktu: " . $th->getMessage(); // Obsługa błędów
         } 
@@ -61,7 +60,6 @@ $kodProduktu = $_POST['kodProduktu'];
             $stmtCen = $polaczenie->prepare($insertCen); // Przygotowanie zapytania
             $stmtCen->bind_param("sssss", $idc, $cena, $cenaOryginalna, $marza, $nr_oferty); // Powiązanie parametrów
             $stmtCen->execute(); // Wykonanie zapytania
-            echo "Cena została dodana pomyślnie!<br>"; // Informacja o sukcesie
         } catch (Throwable $e) {
             echo "Błąd dodawania ceny: " . $e->getMessage(); // Obsługa błędów
         }
@@ -129,7 +127,6 @@ $kodProduktu = $_POST['kodProduktu'];
                     $stmtZnak->bind_param("ssssssss", $idz, $pozycjaZnakowania, $technologiaZnakowania, $iloscKolorow, $kolor, $wplyw, $zdjęcieImg, $nr_oferty); // Powiązanie parametrów
                     $stmtZnak->send_long_data(0, $zdjęcieImg); // Wysłanie dużych danych
                     $stmtZnak->execute(); // Wykonanie zapytania
-                    echo "Znakowanie zostało dodane pomyślnie!<br>"; // Informacja o sukcesie
                 } catch (Throwable $e) {
                     echo "Błąd dodawania znakowania nr ".$increment.": ". $e->getMessage(); // Obsługa błędów
                 }

@@ -224,9 +224,10 @@ session_start();
                     document.getElementById('wroc').style.display = "block"; // Pokazuje przycisk powrotu
                     document.getElementById('usunZnak').style.display = "block"; // Pokazuje przycisk usuwania znaku
                 }
-                
                 if (opcjaPowrotu > 0) {
+                    opcjaPowrotu = optionCount; // Ustawia opcję powrotu na aktualny licznik
                     let currentWrapper = "sideFormWrapper" + opcjaPowrotu; // Pobiera aktualny wrapper
+                    console.log(currentWrapper);
                     document.getElementById(currentWrapper).style.display = "none"; // Ukrywa aktualny wrapper
                 }
                 
@@ -272,7 +273,6 @@ session_start();
                 getTechnologie(optionCount); // Wywołuje funkcję do pobierania technologii
                 getPozycjeZnakowania(optionCount); // Wywołuje funkcję do pobierania pozycji znakowania
                 getKolory(optionCount); // Wywołuje funkcję do pobierania kolorów
-                
                 opcjaPowrotu = optionCount; // Ustawia opcję powrotu na aktualny licznik
             }  
 
@@ -322,6 +322,7 @@ session_start();
                     document.getElementById('wroc').style.display = "none"; // Ukrywa przycisk powrotu, jeśli to jedyna opcja
                     document.getElementById("sideFormWrapper" + optionCount).style.display = "flex";
                     document.getElementById('przod').style.display = "none"; // Ukrywa przycisk przodu, jeśli to jedyna opcja
+                    optionCount = 1;
                 } else {
                     document.getElementById("sideFormWrapper" + optionCount).style.display = "flex"; // Pokazuje poprzedni wrapper
                 }
